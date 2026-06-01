@@ -1,14 +1,37 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="쿠팡 판매자배송과 로켓그로스의 예상 판매 마진 비교 계산기">
+  <title>쿠팡 판매마진 계산기</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+  <header class="hero"><div class="wrap"><p class="eyebrow">COUPANG SELLER TOOL</p><div class="hero-row"><div><h1>판매마진 계산기</h1><p>판매자배송과 로켓그로스, 어떤 방식이 더 유리한지 한 번에 비교하세요.</p></div><button class="ghost" id="fillExample">예시 불러오기</button></div></div></header>
+  <main class="layout wrap">
+    <section class="panel inputs">
+      <div class="section-head"><div><p class="number">01</p><h2>상품 정보</h2></div><button class="text-btn" id="reset">초기화</button></div>
+      <div class="grid">
+        <label class="field wide"><span>상품 카테고리</span><select id="category"><option value="10.8">가구/홈인테리어 · 10.8%</option><option value="7.8">가전디지털 · 7.8%</option><option value="10.8">도서/음반/문구 · 10.8%</option><option value="10">출산/유아 · 10.0%</option><option value="10.8">스포츠/레저 · 10.8%</option><option value="9.6">뷰티 · 9.6%</option><option value="7.8">생활용품 · 7.8%</option><option value="10.6" selected>식품 · 10.6%</option><option value="10.8">완구/취미 · 10.8%</option><option value="10">자동차용품 · 10.0%</option><option value="10.8">주방용품 · 10.8%</option><option value="10.5">패션 · 10.5%</option><option value="10.8">반려/애완용품 · 10.8%</option><option value="custom">직접 입력</option></select></label>
+        <label class="field"><span>판매 수수료율</span><i><input id="feeRate" type="number" min="0" max="100" step="0.1" value="10.6"><b>%</b></i></label>
+        <label class="field"><span>최종 판매가</span><i><input id="salePrice" type="number" min="0" step="100" value="0"><b>원</b></i><small>쿠폰 할인이 반영된 고객 결제 가격</small></label>
+        <label class="field"><span>판매자 할인쿠폰</span><i><input id="sellerCoupon" type="number" min="0" step="100" value="0"><b>원</b></i><small>개당 즉시할인 및 다운로드 쿠폰 합계</small></label>
+        <label class="field"><span>상품 원가</span><i><input id="productCost" type="number" min="0" step="100" value="0"><b>원</b></i></label>
+        <label class="field"><span>판매 수량</span><i><input id="quantity" type="number" min="1" step="1" value="1"><b>개</b></i></label>
+        <label class="field"><span>개당 광고비</span><i><input id="adCost" type="number" min="0" step="100" value="0"><b>원</b></i></label>
+        <label class="field"><span>개당 기타 비용</span><i><input id="otherCost" type="number" min="0" step="100" value="0"><b>원</b></i></label>
+      </div>
+      <details><summary>월 서비스 이용료 반영하기</summary><div class="detail-body"><label class="check"><input id="applyMonthlyFee" type="checkbox">월 서비스 이용료 55,000원을 판매 수량에 나누어 반영</label><label class="field"><span>이번 달 예상 총 판매 수량</span><i><input id="monthlyQuantity" type="number" min="1" value="100"><b>개</b></i></label><p>배송비 제외 월 매출이 100만 원 이상일 때 발생하는 비용입니다.</p></div></details>
+      <div class="section-head cost-head"><div><p class="number">02</p><h2>판매 방식별 비용</h2></div></div>
+      <div class="cost-grid">
+        <section class="cost-card"><div class="cost-title"><em>W</em><div><h3>판매자배송</h3><p>쿠팡윙에서 직접 배송</p></div></div><label class="field"><span>개당 택배비</span><i><input id="wingShipping" type="number" min="0" step="100" value="0"><b>원</b></i></label><label class="field"><span>구매자 결제 배송비</span><i><input id="wingShippingRevenue" type="number" min="0" step="100" value="0"><b>원</b></i><small>별도 배송비에는 3% + VAT 수수료 적용</small></label><label class="field"><span>개당 포장비</span><i><input id="wingPacking" type="number" min="0" step="100" value="0"><b>원</b></i></label></section>
+        <section class="cost-card rocket"><div class="cost-title"><em>R</em><div><h3>로켓그로스</h3><p>쿠팡 풀필먼트 이용</p></div></div><label class="field"><span>개당 입출고비</span><i><input id="rocketHandling" type="number" min="0" step="50" value="650"><b>원</b></i></label><label class="field"><span>개당 배송비</span><i><input id="rocketShipping" type="number" min="0" step="50" value="1550"><b>원</b></i></label><label class="field"><span>개당 입고 배송비</span><i><input id="rocketInbound" type="number" min="0" step="50" value="0"><b>원</b></i></label><label class="field"><span>개당 보관·반품 예상비</span><i><input id="rocketOther" type="number" min="0" step="50" value="0"><b>원</b></i></label><p class="helper">입출고비와 배송비는 상품 크기, 카테고리, 판매가에 따라 달라집니다.</p></section>
+      </div>
+    </section>
+    <aside class="panel results" aria-live="polite"><p class="eyebrow green">ESTIMATED PROFIT</p><h2>예상 마진 비교</h2><div class="winner" id="winner">판매가를 입력해 주세요.</div><section class="result-card" id="wingCard"><div class="result-head"><div><p>판매자배송</p><h3 id="wingProfit">0원</h3></div><strong id="wingMargin">0.0%</strong></div><dl id="wingBreakdown"></dl></section><section class="result-card rocket-result" id="rocketCard"><div class="result-head"><div><p>로켓그로스</p><h3 id="rocketProfit">0원</h3></div><strong id="rocketMargin">0.0%</strong></div><dl id="rocketBreakdown"></dl></section><div class="difference"><span>예상 이익 차이</span><strong id="difference">0원</strong></div><p class="notice">본 결과는 예상치입니다. 실제 정산 금액은 상품별 적용 수수료, 프로모션, 반품 및 정산 정책에 따라 달라질 수 있습니다.</p></aside>
+  </main>
+  <footer class="wrap"><span>쿠팡 판매마진 계산기</span><a href="https://marketplace.coupang.com/information-center/almyeon-alsurog-deo-joheun-kupang-susuryo" target="_blank" rel="noreferrer">쿠팡 수수료 안내 확인</a></footer>
+  <script src="./main.js"></script>
 </body>
 </html>
