@@ -9,7 +9,8 @@
 </head>
 <body>
   <header class="hero"><div class="wrap"><p class="eyebrow">COUPANG SELLER TOOL</p><div class="hero-row"><div><h1>판매마진 계산기</h1><p>판매자배송과 로켓그로스, 어떤 방식이 더 유리한지 한 번에 비교하세요.</p></div><button class="ghost" id="fillExample">예시 불러오기</button></div></div></header>
-  <main class="layout wrap">
+  <nav class="calculator-tabs wrap" aria-label="계산기 선택"><button class="tab-button active" type="button" data-tab="calculatorTab">상품별 마진 비교</button><button class="tab-button" type="button" data-tab="periodTab">광고보고서 기간별 수익</button></nav>
+  <main class="layout wrap tab-panel active" id="calculatorTab">
     <section class="panel inputs">
       <div class="section-head"><div><p class="number">01</p><h2>상품 정보</h2></div><button class="text-btn" id="reset">초기화</button></div>
       <div class="grid">
@@ -31,32 +32,33 @@
     </section>
     <aside class="panel results" aria-live="polite"><p class="eyebrow green">ESTIMATED PROFIT</p><h2>예상 마진 비교</h2><div class="winner" id="winner">판매가를 입력해 주세요.</div><section class="result-card" id="wingCard"><div class="result-head"><div><p>판매자배송</p><h3 id="wingProfit">0원</h3></div><strong id="wingMargin">0.0%</strong></div><dl id="wingBreakdown"></dl></section><section class="result-card rocket-result" id="rocketCard"><div class="result-head"><div><p>로켓그로스</p><h3 id="rocketProfit">0원</h3></div><strong id="rocketMargin">0.0%</strong></div><dl id="rocketBreakdown"></dl></section><div class="difference"><span>예상 이익 차이</span><strong id="difference">0원</strong></div><p class="notice">본 결과는 예상치입니다. 실제 정산 금액은 상품별 적용 수수료, 프로모션, 반품 및 정산 정책에 따라 달라질 수 있습니다.</p></aside>
   </main>
-  <section class="period-section wrap" id="periodAnalyzer">
-    <div class="period-title"><div><p class="eyebrow green">AD REPORT ANALYZER</p><h2>기간 전체 순이익 분석</h2><p>쿠팡 광고보고서를 업로드하고 확인이 필요한 비용만 입력하세요.</p></div><span class="privacy-badge">파일은 서버로 전송되지 않습니다</span></div>
+  <section class="period-section wrap tab-panel" id="periodTab">
+    <div class="period-title"><div><p class="eyebrow green">AD REPORT ANALYZER</p><h2>광고보고서 기간별 수익</h2><p>쿠팡 광고보고서를 업로드하고 보고서에 없는 비용만 입력하세요.</p></div><span class="privacy-badge">파일은 서버로 전송되지 않습니다</span></div>
     <div class="period-layout">
       <section class="panel period-inputs">
         <div class="section-head"><div><p class="number">01</p><h2>광고보고서 업로드</h2></div></div>
         <label class="upload-box" for="adReportFile"><strong>광고보고서 엑셀 선택</strong><span>.xlsx, .xls, .csv 파일을 업로드하세요</span><input id="adReportFile" type="file" accept=".xlsx,.xls,.csv"></label>
         <p class="upload-status" id="adReportStatus">아직 업로드된 보고서가 없습니다.</p>
-        <div class="ad-metrics">
-          <div><span>광고비 <small>VAT 포함</small></span><strong id="periodAdSpend">0원</strong></div><div><span>클릭수</span><strong id="periodClicks">0회</strong></div><div><span>광고 전환매출 <small>14일</small></span><strong id="periodAdRevenue">0원</strong></div><div><span>광고 ROAS <small>14일</small></span><strong id="periodRoas">0.0%</strong></div>
+        <div class="report-period"><span>캠페인 기간</span><strong id="periodCampaignRange">보고서 업로드 후 자동 표시</strong></div>
+        <div class="ad-metrics ad-metrics--simple">
+          <div><span>광고 전환매출 <small>14일 기준</small></span><strong id="periodAdRevenue">0원</strong></div>
+          <div><span>광고비 <small>VAT 포함</small></span><strong id="periodAdSpend">0원</strong></div>
+          <div><span>판매된 수량 <small>광고 전환</small></span><strong id="periodSoldQuantity">0개</strong></div>
+          <div><span>반품수량</span><strong id="periodReturnQuantity">보고서 미제공</strong></div>
         </div>
-        <div class="section-head cost-head"><div><p class="number">02</p><h2>기간 및 실제 비용 입력</h2></div></div>
+        <div class="section-head cost-head"><div><p class="number">02</p><h2>추가 비용 입력</h2></div></div>
         <div class="grid period-grid">
-          <label class="field"><span>조회 시작일</span><i><input id="periodStart" type="date"></i></label><label class="field"><span>조회 종료일</span><i><input id="periodEnd" type="date"></i></label>
-          <label class="field wide"><span>Wing 정산금액 합계</span><i><input id="periodSettlement" type="number" min="0" step="100" value="0"><b>원</b></i><small>같은 기간 주문 상세 정산 엑셀의 정산금액 합계</small></label>
-          <label class="field wide"><span>상품 매입원가 합계</span><i><input id="periodProductCost" type="number" min="0" step="100" value="0"><b>원</b></i></label>
-          <label class="field"><span>정상 발송 주문수</span><i><input id="periodShipmentCount" type="number" min="0" step="1" value="0"><b>건</b></i></label><label class="field"><span>주문당 택배비</span><i><input id="periodShippingUnit" type="number" min="0" step="100" value="0"><b>원</b></i></label>
-          <label class="field"><span>포장 건수</span><i><input id="periodPackingCount" type="number" min="0" step="1" value="0"><b>건</b></i></label><label class="field"><span>건당 포장비</span><i><input id="periodPackingUnit" type="number" min="0" step="100" value="0"><b>원</b></i></label>
-          <label class="field wide"><span>확인 가능한 판매자 부담 반품 택배비</span><i><input id="periodReturnCost" type="number" min="0" step="100" value="0"><b>원</b></i><small>확인이 어려우면 0원으로 두세요. 결과에서 미확인 비용으로 안내합니다.</small></label>
+          <label class="field wide"><span>개당 매입원가</span><i><input id="periodProductUnitCost" type="number" min="0" step="100" value="0"><b>원</b></i><small>광고 전환 판매수량과 곱해 최종 매입원가를 계산합니다.</small></label>
+          <label class="field wide"><span>배송비 합계</span><i><input id="periodShippingCost" type="number" min="0" step="100" value="0"><b>원</b></i><small>실제로 부담한 정상 발송 및 반품 배송비를 확인 가능한 범위에서 입력하세요.</small></label>
           <label class="field wide"><span>기타 비용 합계</span><i><input id="periodOtherCost" type="number" min="0" step="100" value="0"><b>원</b></i></label>
         </div>
       </section>
       <aside class="panel period-result" aria-live="polite">
-        <p class="eyebrow green">PERIOD NET PROFIT</p><h2>기간 순이익</h2><div class="profit-total"><span>확인 가능한 순이익</span><strong id="periodProfit">0원</strong><b id="periodMargin">정산금액 대비 0.0%</b></div>
+        <p class="eyebrow green">PERIOD NET PROFIT</p><h2>기간 순이익</h2>
+        <div class="profit-total"><span>예상 순이익</span><strong id="periodProfit">0원</strong><b id="periodMargin">광고 전환매출 대비 0.0%</b></div>
         <dl id="periodBreakdown"></dl>
-        <div class="period-note"><strong>반품 택배비 안내</strong><p>입력하지 않은 판매자 부담 반품 택배비는 결과에 포함되지 않습니다. 실제 최종 순이익은 표시 금액보다 낮을 수 있습니다.</p></div>
-        <p class="notice">월 서비스 이용료는 반영하지 않습니다. 정산보고서와 광고보고서의 조회 기간을 동일하게 맞춰 주세요.</p>
+        <div class="period-note"><strong>반품수량 안내</strong><p>광고보고서에는 반품수량이 포함되지 않습니다. 판매자가 부담한 반품 배송비를 확인할 수 있다면 배송비 합계에 포함해 주세요.</p></div>
+        <p class="notice">엑셀 업로드 직후 순이익은 광고 전환매출에서 광고비만 차감한 값입니다. 월 서비스 이용료는 반영하지 않습니다.</p>
       </aside>
     </div>
   </section>
