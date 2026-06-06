@@ -27,6 +27,7 @@
       <a href="#calculation">계산 기준</a>
       <a href="#privacy">데이터 처리</a>
       <a href="#faq">FAQ</a>
+      <a href="#contact">문의</a>
     </nav>
   </header>
   <section class="period-section wrap tab-panel active" id="periodTab">
@@ -214,9 +215,41 @@
       </article>
       <article>
         <h3>문의와 개선 요청</h3>
-        <p>계산 기준이 맞지 않거나 추가하고 싶은 비용 항목이 있다면 <a href="https://github.com/ssmh07-crypto/coupang" target="_blank" rel="noopener">GitHub 저장소</a>를 통해 개선 요청을 남겨주세요.</p>
+        <p>계산 기준이 맞지 않거나 추가하고 싶은 비용 항목이 있다면 <a href="#contact">문의와 개선 요청 폼</a>으로 남겨주세요.</p>
       </article>
     </div>
+  </section>
+
+  <section class="quality-section contact-section wrap" id="contact">
+    <div class="quality-intro">
+      <p class="eyebrow green">CONTACT</p>
+      <h2>문의와 개선 요청</h2>
+      <p>계산 기준 오류, 추가 비용 항목, 사용 중 불편한 점을 보내주세요. 남겨주신 내용은 도구 개선에 참고하겠습니다.</p>
+    </div>
+    <form class="contact-form" action="https://formspree.io/f/xvznzddj" method="POST">
+      <label>
+        <span>이름</span>
+        <input type="text" name="name" autocomplete="name" placeholder="선택 입력">
+      </label>
+      <label>
+        <span>이메일</span>
+        <input type="email" name="email" autocomplete="email" placeholder="답변 받을 이메일">
+      </label>
+      <label>
+        <span>분류</span>
+        <select name="request_type" required>
+          <option value="문의">문의</option>
+          <option value="개선 요청">개선 요청</option>
+          <option value="계산 오류 제보">계산 오류 제보</option>
+        </select>
+      </label>
+      <label class="contact-message">
+        <span>내용</span>
+        <textarea name="message" rows="6" required placeholder="문의 또는 개선 요청 내용을 입력해주세요."></textarea>
+      </label>
+      <input type="hidden" name="_subject" value="쿠팡 기간 순이익 계산기 문의">
+      <button type="submit">보내기</button>
+    </form>
   </section>
 
   <section class="quality-section wrap" id="faq">
@@ -242,7 +275,7 @@
 
   <div class="site-footer wrap">
     <span>쿠팡 광고보고서 기간 순이익 계산기</span>
-    <span><a href="https://github.com/ssmh07-crypto/coupang" target="_blank" rel="noopener">문의 및 개선 요청</a> · 운영 참고용 계산 도구이며 실제 정산 금액과 차이가 있을 수 있습니다.</span>
+    <span><a href="#contact">문의 및 개선 요청</a> · 운영 참고용 계산 도구이며 실제 정산 금액과 차이가 있을 수 있습니다.</span>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
