@@ -2,13 +2,31 @@ const won=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0});
 const money=n=>`${won.format(Math.round(n))}원`;
 const minus=n=>`- ${money(n)}`;
 const VAT_RATE=0.1;
+const XLSX_SRC='https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
 const periodIds=['periodTotalQuantity','periodCategoryFeeRate','periodProductUnitCost','periodReturnCount','periodCouponUnitPrice','periodShippingCost','periodOtherCost'];
 const periodEl=Object.fromEntries(periodIds.map(id=>[id,document.getElementById(id)]));
+const uiIds=['periodProfit','periodOrganicQuantity','periodAdRevenue','periodReturnDisplay','periodMargin','periodProfitRate','periodSummaryState','periodProfitRing','periodBreakdown','periodFormulaNumbers','periodFormulaResult','periodAdSpend','periodSoldQuantity','periodRowCount','periodFileName','periodCampaignRange','periodUploadMessage'];
+const ui=Object.fromEntries(uiIds.map(id=>[id,document.getElementById(id)]));
 let adReport={spend:0,revenue:0,quantity:0,rows:0,start:'',end:'',productPrice:0,fileName:''};
 let totalQuantityTouched=false;
 const periodVal=id=>Math.max(0,Number(periodEl[id].value)||0);
 const withVat=amount=>amount*(1+VAT_RATE);
-const setText=(id,text)=>{const node=document.getElementById(id);if(node)node.textContent=text};
+const setText=(id,text)=>{const node=ui[id]||document.getElementById(id);if(node)node.textContent=text};
+let xlsxLoadPromise;
+function loadXlsx(){
+  if(window.XLSX)return Promise.resolve(window.XLSX);
+  if(!xlsxLoadPromise){
+    xlsxLoadPromise=new Promise((resolve,reject)=>{
+      const script=document.createElement('script');
+      script.src=XLSX_SRC;
+      script.async=true;
+      script.onload=()=>window.XLSX?resolve(window.XLSX):reject(new Error('엑셀 분석 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.'));
+      script.onerror=()=>reject(new Error('엑셀 분석 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.'));
+      document.head.append(script);
+    });
+  }
+  return xlsxLoadPromise;
+}
 function periodMoney(amount){return money(amount)}
 function syncTotalQuantity(){
   if(!totalQuantityTouched&&periodEl.periodTotalQuantity)periodEl.periodTotalQuantity.value=adReport.quantity;
@@ -25,7 +43,7 @@ function renderPeriod(){
   const returnCount=Math.max(0,adQuantity-totalQuantity);
   const organicQuantity=Math.max(0,totalQuantity-adQuantity);
   periodEl.periodReturnCount.value=returnCount;
-  const netProductPrice=adReport.productPrice-couponUnit;
+  const netProductPrice=Math.max(0,adReport.productPrice-couponUnit);
   const adjustedAdRevenue=Math.max(0,adReport.revenue-couponUnit*adQuantity);
   const returnRevenue=returnCount*netProductPrice;
   const organicRevenue=organicQuantity*netProductPrice;
@@ -34,24 +52,23 @@ function renderPeriod(){
   const categoryFee=totalRevenue*categoryRate/100;
   const categoryFeeVat=withVat(categoryFee);
   const productCostTotal=unitCost*totalQuantity;
-  const returnRate=adQuantity?returnCount/adQuantity*100:0;
   const shippingTotal=shippingUnit*totalQuantity;
   const shippingTotalVat=withVat(shippingTotal);
   const profit=totalRevenue-adSpendVat-categoryFeeVat-productCostTotal-shippingTotalVat-other;
   const margin=totalRevenue?profit/totalRevenue*100:0;
   const ringValue=Math.max(0,Math.min(100,margin));
-  const profitEl=document.getElementById('periodProfit');
-  profitEl.textContent=periodMoney(profit);
-  profitEl.classList.toggle('loss',profit<0);
+  const profitEl=ui.periodProfit;
+  if(profitEl){
+    profitEl.textContent=periodMoney(profit);
+    profitEl.classList.toggle('loss',profit<0);
+  }
   setText('periodOrganicQuantity',`${won.format(organicQuantity)}개`);
-  setText('periodOrganicRevenue',periodMoney(organicRevenue));
   setText('periodAdRevenue',periodMoney(adjustedAdRevenue));
   setText('periodReturnDisplay',`${won.format(returnCount)}개`);
   setText('periodMargin',`총 전환매출 대비 순이익률 ${margin.toFixed(1)}%`);
   setText('periodProfitRate',`${margin.toFixed(0)}%`);
   setText('periodSummaryState',!adReport.rows?'보고서 대기':profit>=0?'수익 구간':'손실 구간');
-  setText('periodReturnRate',`${returnRate.toFixed(1)}%`);
-  const ring=document.getElementById('periodProfitRing');
+  const ring=ui.periodProfitRing;
   if(ring)ring.style.setProperty('--rate',`${ringValue}%`);
   const revenueTotal=totalRevenue;
   const costTotal=adSpendVat+categoryFeeVat+productCostTotal+shippingTotalVat+other;
@@ -74,8 +91,8 @@ function renderPeriod(){
       ['기간 순이익',periodMoney(profit),profit<0?'loss':'total']
     ]]
   ];
-  document.getElementById('periodBreakdown').innerHTML=breakdownGroups.map(([title,items])=>`<section class="breakdown-section"><h3>${title}</h3>${items.map(([label,value,type])=>`<div class="result-cost-row ${type}"><span>${label}</span><strong>${value}</strong></div>`).join('')}</section>`).join('');
-  document.getElementById('periodFormulaNumbers').innerHTML=[
+  ui.periodBreakdown.innerHTML=breakdownGroups.map(([title,items])=>`<section class="breakdown-section"><h3>${title}</h3>${items.map(([label,value,type])=>`<div class="result-cost-row ${type}"><span>${label}</span><strong>${value}</strong></div>`).join('')}</section>`).join('');
+  ui.periodFormulaNumbers.innerHTML=[
     ['매출 합계',`= 광고 전환매출 + 자연판매 매출 - 반품/취소 매출<br><b>= ${periodMoney(adjustedAdRevenue)} + ${periodMoney(organicRevenue)} - ${periodMoney(returnRevenue)}</b>`],
     ['비용 합계',`= 광고비 + 수수료 + 매입원가 + 입출고비 + 기타 비용<br><b>= ${periodMoney(costTotal)}</b>`],
     ['기간 순이익',`= 매출 합계 - 비용 합계<br><b>= ${periodMoney(revenueTotal)} - ${periodMoney(costTotal)}</b>`]
@@ -94,9 +111,7 @@ function renderAdReport(){
   setText('periodCampaignRange',adReport.start?`${adReport.start} ~ ${adReport.end||'진행 중'}`:'보고서 업로드 후 자동 표시');
   renderPeriod();
 }
-async function analyzeAdReport(event){const file=event.target.files[0];if(!file)return;try{if(!window.XLSX)throw new Error('엑셀 분석 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.');setText('periodUploadMessage','보고서를 분석하고 있습니다...');const workbook=XLSX.read(await file.arrayBuffer(),{type:'array'}),sheet=workbook.Sheets[workbook.SheetNames[0]],rows=XLSX.utils.sheet_to_json(sheet,{defval:0});if(!rows.length||!Object.prototype.hasOwnProperty.call(rows[0],'광고비'))throw new Error('쿠팡 광고보고서 형식을 확인할 수 없습니다. 광고비 열이 필요합니다.');const range=campaignRange(rows);adReport={spend:sum(rows,'광고비'),revenue:sum(rows,'총 전환매출액(14일)')||sum(rows,'총 전환매출액(1일)'),quantity:sum(rows,'총 판매수량(14일)')||sum(rows,'총 판매수량(1일)'),rows:rows.length,fileName:file.name,...range,productPrice:0};adReport.productPrice=adReport.quantity?adReport.revenue/adReport.quantity:0;if(!totalQuantityTouched)periodEl.periodTotalQuantity.value=adReport.quantity;setText('periodUploadMessage','보고서 분석이 완료되었습니다.');renderAdReport()}catch(error){adReport={spend:0,revenue:0,quantity:0,rows:0,start:'',end:'',productPrice:0,fileName:''};setText('periodUploadMessage',error.message);renderAdReport()}}
-function resetPeriodInputs(){Object.entries(periodEl).forEach(([id,input])=>input.value=id==='periodShippingCost'?3650:id==='periodCategoryFeeRate'?10.6:0);const category=document.getElementById('periodCategory');if(category)category.value='10.6';totalQuantityTouched=false;renderPeriod()}
-document.querySelectorAll('.tab-button').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.tab-button,.tab-panel').forEach(item=>item.classList.remove('active'));button.classList.add('active');document.getElementById(button.dataset.tab).classList.add('active')}));
+async function analyzeAdReport(event){const file=event.target.files[0];if(!file)return;try{setText('periodUploadMessage','보고서를 분석하고 있습니다...');const XLSX=await loadXlsx();const workbook=XLSX.read(await file.arrayBuffer(),{type:'array'}),sheet=workbook.Sheets[workbook.SheetNames[0]],rows=XLSX.utils.sheet_to_json(sheet,{defval:0});if(!rows.length||!Object.prototype.hasOwnProperty.call(rows[0],'광고비'))throw new Error('쿠팡 광고보고서 형식을 확인할 수 없습니다. 광고비 열이 필요합니다.');const range=campaignRange(rows);adReport={spend:sum(rows,'광고비'),revenue:sum(rows,'총 전환매출액(14일)')||sum(rows,'총 전환매출액(1일)'),quantity:sum(rows,'총 판매수량(14일)')||sum(rows,'총 판매수량(1일)'),rows:rows.length,fileName:file.name,...range,productPrice:0};adReport.productPrice=adReport.quantity?adReport.revenue/adReport.quantity:0;if(!totalQuantityTouched)periodEl.periodTotalQuantity.value=adReport.quantity;setText('periodUploadMessage','보고서 분석이 완료되었습니다.');renderAdReport()}catch(error){adReport={spend:0,revenue:0,quantity:0,rows:0,start:'',end:'',productPrice:0,fileName:''};setText('periodUploadMessage',error.message);renderAdReport()}}
 const periodCategory=document.getElementById('periodCategory');
 if(periodCategory){
   periodCategory.addEventListener('change',()=>{
