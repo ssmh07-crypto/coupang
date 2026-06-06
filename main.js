@@ -12,40 +12,51 @@ function fillExample(){Object.entries({feeRate:10.6,salePrice:18900,sellerCoupon
 function reset(){Object.values(el).forEach(input=>input.value=input.id==='quantity'?1:input.id==='monthlyQuantity'?100:0);el.rocketHandling.value=650;el.rocketShipping.value=1550;category.value='10.6';el.feeRate.value=10.6;monthly.checked=false;calculate()}
 category.addEventListener('change',()=>{if(category.value!=='custom')el.feeRate.value=category.value;calculate()});el.feeRate.addEventListener('input',()=>{if(category.value!=='custom'&&Number(category.value)!==Number(el.feeRate.value))category.value='custom'});document.querySelectorAll('input').forEach(input=>input.addEventListener('input',calculate));document.getElementById('fillExample').addEventListener('click',fillExample);document.getElementById('reset').addEventListener('click',reset);calculate();
 
-const periodIds=['periodProductUnitCost','periodShippingCost','periodOtherCost'];
+const periodIds=['periodProductUnitCost','periodReturnCount','periodCouponUnitPrice','periodShippingCost','periodOtherCost'];
 const periodEl=Object.fromEntries(periodIds.map(id=>[id,document.getElementById(id)]));
-let adReport={spend:0,revenue:0,quantity:0,rows:0,start:'',end:''};
+let adReport={spend:0,revenue:0,quantity:0,rows:0,start:'',end:'',productPrice:0};
 const periodVal=id=>Math.max(0,Number(periodEl[id].value)||0);
 const setText=(id,text)=>{const node=document.getElementById(id);if(node)node.textContent=text};
 function periodMoney(amount){return money(amount)}
+function calcLine(formula,result){return `<small>${formula} = ${result}</small>`}
 function renderPeriod(){
-  const product=periodVal('periodProductUnitCost')*adReport.quantity;
+  const unitCost=periodVal('periodProductUnitCost');
+  const returnCount=periodVal('periodReturnCount');
+  const productPrice=adReport.productPrice;
+  const couponUnit=periodVal('periodCouponUnitPrice');
   const shipping=periodVal('periodShippingCost');
   const other=periodVal('periodOtherCost');
-  const totalCost=adReport.spend+product+shipping+other;
+  const product=unitCost*adReport.quantity;
+  const returnRate=(adReport.quantity+returnCount)?returnCount/(adReport.quantity+returnCount)*100:0;
+  const returnTotal=returnCount*productPrice;
+  const couponTotal=couponUnit*adReport.quantity;
+  const totalCost=adReport.spend+product+returnTotal+couponTotal+shipping+other;
   const profit=adReport.revenue-totalCost;
   const margin=adReport.revenue?profit/adReport.revenue*100:0;
   const roas=adReport.spend?adReport.revenue/adReport.spend*100:0;
-  const costPerSale=adReport.quantity?adReport.spend/adReport.quantity:0;
   const profitEl=document.getElementById('periodProfit');
   profitEl.textContent=periodMoney(profit);
   profitEl.classList.toggle('loss',profit<0);
   setText('periodMargin',`광고 전환매출 대비 ${margin.toFixed(1)}%`);
   setText('periodRoas',`${roas.toFixed(1)}%`);
-  setText('periodProductCostTotal',`총 매입원가 ${periodMoney(product)}`);
+  setText('periodProductCostTotal',`매입원가 합계 ${periodMoney(product)}`);
+  setText('periodReturnRate',`${returnRate.toFixed(1)}%`);
+  setText('periodReturnTotal',periodMoney(returnTotal));
+  setText('periodReturnTotalSide',periodMoney(returnTotal));
+  setText('periodCouponTotalSide',periodMoney(couponTotal));
   setText('periodCostTotal',`총 비용 ${periodMoney(totalCost)}`);
-  setText('periodCostPerSale',periodMoney(costPerSale));
-  setText('periodNetProfitInline',periodMoney(profit));
   setText('periodSummaryState',!adReport.rows?'보고서 대기':profit>=0?'수익 구간':'손실 구간');
   const rows=[
-    ['광고 전환매출',periodMoney(adReport.revenue),'plus'],
-    ['광고비 (VAT 포함)',minus(adReport.spend),'minus'],
-    ['최종 매입원가',minus(product),'minus'],
-    ['배송비 합계',minus(shipping),'minus'],
-    ['기타 비용',minus(other),'minus'],
-    ['예상 순이익',periodMoney(profit),profit<0?'loss':'total']
+    ['광고 전환매출',periodMoney(adReport.revenue),calcLine('보고서 전환매출 합계',periodMoney(adReport.revenue)),'plus'],
+    ['광고비(VAT 포함)',minus(adReport.spend),calcLine('보고서 광고비 합계',minus(adReport.spend)),'minus'],
+    ['최종 매입원가',minus(product),calcLine(`${periodMoney(unitCost)} x ${won.format(adReport.quantity)}개`,minus(product)),'minus'],
+    ['반품된 상품 총 가격',minus(returnTotal),calcLine(`${periodMoney(productPrice)} x ${won.format(returnCount)}개`,minus(returnTotal)),'minus'],
+    ['할인쿠폰 차감액',minus(couponTotal),calcLine(`${periodMoney(couponUnit)} x ${won.format(adReport.quantity)}개`,minus(couponTotal)),'minus'],
+    ['배송비 합계',minus(shipping),calcLine('입력한 배송비 합계',minus(shipping)),'minus'],
+    ['기타 비용 합계',minus(other),calcLine('입력한 기타 비용 합계',minus(other)),'minus'],
+    ['기간 순이익',periodMoney(profit),calcLine('전환매출 - 전체 비용',periodMoney(profit)),profit<0?'loss':'total']
   ];
-  document.getElementById('periodBreakdown').innerHTML=rows.map(([label,value,type])=>`<div class="ledger-row ${type}"><span>${label}</span><strong>${value}</strong></div>`).join('');
+  document.getElementById('periodBreakdown').innerHTML=rows.map(([label,value,formula,type])=>`<div class="ledger-row ${type}"><span>${label}${formula}</span><strong>${value}</strong></div>`).join('');
 }
 function reportNumber(value){if(typeof value==='number')return value;return Number(String(value??'').replace(/,/g,''))||0}
 function sum(rows,key){return rows.reduce((total,row)=>total+reportNumber(row[key]),0)}
@@ -59,6 +70,6 @@ function renderAdReport(){
   setText('periodCampaignRange',adReport.start?`${adReport.start} ~ ${adReport.end||'진행 중'}`:'보고서 업로드 후 자동 표시');
   renderPeriod();
 }
-async function analyzeAdReport(event){const file=event.target.files[0],status=document.getElementById('adReportStatus');if(!file)return;try{if(!window.XLSX)throw new Error('엑셀 분석 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.');status.textContent='보고서를 분석하고 있습니다...';status.classList.remove('complete');const workbook=XLSX.read(await file.arrayBuffer(),{type:'array'}),sheet=workbook.Sheets[workbook.SheetNames[0]],rows=XLSX.utils.sheet_to_json(sheet,{defval:0});if(!rows.length||!Object.prototype.hasOwnProperty.call(rows[0],'광고비'))throw new Error('쿠팡 광고보고서 형식을 확인할 수 없습니다. 광고비 열이 필요합니다.');const range=campaignRange(rows);adReport={spend:sum(rows,'광고비'),revenue:sum(rows,'총 전환매출액(14일)')||sum(rows,'총 전환매출액(1일)'),quantity:sum(rows,'총 판매수량(14일)')||sum(rows,'총 판매수량(1일)'),rows:rows.length,...range};status.textContent=`${file.name} · ${won.format(adReport.rows)}개 행 분석 완료`;status.classList.add('complete');renderAdReport()}catch(error){adReport={spend:0,revenue:0,quantity:0,rows:0,start:'',end:''};status.textContent=error.message;status.classList.remove('complete');renderAdReport()}}
+async function analyzeAdReport(event){const file=event.target.files[0],status=document.getElementById('adReportStatus');if(!file)return;try{if(!window.XLSX)throw new Error('엑셀 분석 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.');status.textContent='보고서를 분석하고 있습니다...';status.classList.remove('complete');const workbook=XLSX.read(await file.arrayBuffer(),{type:'array'}),sheet=workbook.Sheets[workbook.SheetNames[0]],rows=XLSX.utils.sheet_to_json(sheet,{defval:0});if(!rows.length||!Object.prototype.hasOwnProperty.call(rows[0],'광고비'))throw new Error('쿠팡 광고보고서 형식을 확인할 수 없습니다. 광고비 열이 필요합니다.');const range=campaignRange(rows);adReport={spend:sum(rows,'광고비'),revenue:sum(rows,'총 전환매출액(14일)')||sum(rows,'총 전환매출액(1일)'),quantity:sum(rows,'총 판매수량(14일)')||sum(rows,'총 판매수량(1일)'),rows:rows.length,...range};adReport.productPrice=adReport.quantity?adReport.revenue/adReport.quantity:0;status.textContent=`${file.name} · ${won.format(adReport.rows)}개 행 분석 완료`;status.classList.add('complete');renderAdReport()}catch(error){adReport={spend:0,revenue:0,quantity:0,rows:0,start:'',end:'',productPrice:0};status.textContent=error.message;status.classList.remove('complete');renderAdReport()}}
 document.querySelectorAll('.tab-button').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.tab-button,.tab-panel').forEach(item=>item.classList.remove('active'));button.classList.add('active');document.getElementById(button.dataset.tab).classList.add('active')}));
 document.getElementById('adReportFile').addEventListener('change',analyzeAdReport);Object.values(periodEl).forEach(input=>input.addEventListener('input',renderPeriod));renderAdReport();

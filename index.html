@@ -14,7 +14,7 @@
 
     gtag('config', 'G-39S8C93TWE');
   </script>
-  <link rel="stylesheet" href="./style.css?v=period-ui-1">
+  <link rel="stylesheet" href="./style.css?v=period-ui-2">
 </head>
 <body>
   <header class="hero"><div class="wrap"><p class="eyebrow">COUPANG SELLER TOOL</p><div class="hero-row"><div><h1>판매마진 계산기</h1><p>판매자배송과 로켓그로스, 어떤 방식이 더 유리한지 한 번에 비교하세요.</p></div><button class="ghost" id="fillExample">예시 불러오기</button></div></div></header>
@@ -66,7 +66,7 @@
             <div class="report-period"><span>캠페인 기간</span><strong id="periodCampaignRange">보고서 업로드 후 자동 표시</strong></div>
           </div>
           <div class="period-metric-grid">
-            <div class="period-metric primary"><span>광고 전환매출</span><strong id="periodAdRevenue">0원</strong><small>14일 기준 우선</small></div>
+            <div class="period-metric primary"><span>광고 전환매출</span><strong id="periodAdRevenue">0원</strong></div>
             <div class="period-metric"><span>광고비</span><strong id="periodAdSpend">0원</strong><small>VAT 포함</small></div>
             <div class="period-metric"><span>판매수량</span><strong id="periodSoldQuantity">0개</strong><small>광고 전환</small></div>
             <div class="period-metric"><span>ROAS</span><strong id="periodRoas">0.0%</strong><small>전환매출 / 광고비</small></div>
@@ -77,11 +77,18 @@
                 <span class="period-step">02</span>
                 <h3>추가 비용 입력</h3>
               </div>
-              <span id="periodReturnQuantity">반품수량 보고서 미제공</span>
             </div>
-            <div class="period-cost-grid">
-              <label class="field"><span>개당 매입원가</span><i><input id="periodProductUnitCost" type="number" min="0" step="100" value="0"><b>원</b></i><small id="periodProductCostTotal">총 매입원가 0원</small></label>
-              <label class="field"><span>배송비 합계</span><i><input id="periodShippingCost" type="number" min="0" step="100" value="0"><b>원</b></i><small>정상 발송 및 반품 배송비 포함</small></label>
+            <div class="period-cost-list">
+              <label class="field"><span>최종 매입원가(개당)</span><i><input id="periodProductUnitCost" type="number" min="0" step="100" value="0"><b>원</b></i><small id="periodProductCostTotal">매입원가 합계 0원</small></label>
+              <div class="return-input-card">
+                <label class="field"><span>반품수량</span><i><input id="periodReturnCount" type="number" min="0" step="1" value="0"><b>개</b></i><small>보고서에 나오지 않는 반품 수량을 입력하세요.</small></label>
+                <div class="return-result-grid">
+                  <div><span>반품률</span><strong id="periodReturnRate">0.0%</strong></div>
+                  <div><span>반품된 상품 총 가격</span><strong id="periodReturnTotal">0원</strong></div>
+                </div>
+              </div>
+              <label class="field"><span>할인쿠폰 가격(1장당)</span><i><input id="periodCouponUnitPrice" type="number" min="0" step="100" value="0"><b>원</b></i><small>한 장당 할인쿠폰 가격을 입력하세요.</small></label>
+              <label class="field"><span>배송비 합계</span><i><input id="periodShippingCost" type="number" min="0" step="100" value="0"><b>원</b></i><small>실제로 부담한 배송비를 입력하세요.</small></label>
               <label class="field"><span>기타 비용 합계</span><i><input id="periodOtherCost" type="number" min="0" step="100" value="0"><b>원</b></i><small>포장비, 수수료 조정 등</small></label>
             </div>
           </div>
@@ -100,10 +107,10 @@
           <p class="eyebrow green">PERIOD NET PROFIT</p>
           <h2>기간 순이익</h2>
           <div class="profit-total"><span id="periodSummaryState">보고서 대기</span><strong id="periodProfit">0원</strong><b id="periodMargin">광고 전환매출 대비 0.0%</b></div>
-          <div class="summary-stat"><span>판매 1개당 광고비</span><strong id="periodCostPerSale">0원</strong></div>
-          <div class="summary-stat"><span>예상 순이익</span><strong id="periodNetProfitInline">0원</strong></div>
+          <div class="summary-stat"><span>반품된 상품 총 가격</span><strong id="periodReturnTotalSide">0원</strong></div>
+          <div class="summary-stat"><span>할인쿠폰 차감액</span><strong id="periodCouponTotalSide">0원</strong></div>
           <div class="period-note"><strong>반품수량 안내</strong><p>광고보고서에는 반품수량이 포함되지 않습니다. 판매자가 부담한 반품 배송비를 확인할 수 있다면 배송비 합계에 포함해 주세요.</p></div>
-          <p class="notice">엑셀 업로드 직후 순이익은 광고 전환매출에서 광고비만 차감한 값입니다. 월 서비스 이용료는 반영하지 않습니다.</p>
+          <p class="notice">기간 순이익은 광고 전환매출에서 광고비, 매입원가, 반품 상품 가격, 할인쿠폰, 배송비, 기타 비용을 차감해 계산합니다.</p>
         </aside>
       </div>
     </div>
