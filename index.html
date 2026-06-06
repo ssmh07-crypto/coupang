@@ -194,9 +194,9 @@
       <p>계산 기준을 공개해 사용자가 결과를 검토할 수 있도록 했습니다. 판매자의 정산 방식, 쿠폰 부담 구조, 카테고리 정책에 따라 실제 정산 금액과 차이가 날 수 있으므로 최종 회계 자료가 아니라 운영 의사결정용 참고값으로 사용하세요.</p>
     </div>
     <div class="quality-list">
-      <div><strong>광고 전환매출</strong><span>광고보고서에서 자동 추출한 광고 전환매출을 기준으로 사용합니다.</span></div>
+      <div><strong>광고 전환매출</strong><span>광고보고서 전환매출에서 광고판매수량 기준 할인쿠폰 금액을 차감해 표시합니다.</span></div>
       <div><strong>자연전환매출</strong><span>자연판매수량 × (광고보고서 기준 상품 단가 - 할인쿠폰 1장당 가격)으로 계산합니다.</span></div>
-      <div><strong>기간 순이익</strong><span>광고 전환매출과 자연전환매출 합계에서 광고비 VAT 포함액, 카테고리 수수료 VAT 포함액, 매입원가, 입출고비 VAT 포함액, 기타 비용을 차감합니다.</span></div>
+      <div><strong>기간 순이익</strong><span>광고 전환매출과 자연판매 매출에서 반품/취소 매출을 뺀 뒤 광고비 VAT 포함액, 수수료, 매입원가, 입출고비, 기타 비용을 차감합니다.</span></div>
       <div><strong>반품 및 취소</strong><span>전체판매수량이 광고판매수량보다 적을 때 차이를 반품 및 취소 수량으로 자동 계산합니다.</span></div>
     </div>
   </section>
@@ -246,6 +246,6 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="./main.js?v=saas-period-7"></script>
+  <script src="./main.js?v=saas-period-8"></script>
 </body>
 </html>
