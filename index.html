@@ -16,7 +16,7 @@
 
     gtag('config', 'G-39S8C93TWE');
   </script>
-  <link rel="stylesheet" href="./style.css?v=saas-period-5">
+  <link rel="stylesheet" href="./style.css?v=saas-period-6">
 </head>
 <body>
   <header class="site-topbar wrap">
@@ -76,13 +76,13 @@
             <small>쿠팡윙 &gt; 비즈니스인사이트 &gt; 판매현황에서 확인해주세요.</small>
           </label>
           <div class="auto-result-stack">
-            <div class="auto-result-card">
-              <span>자연판매수량</span>
+            <div class="auto-result-card organic-card">
+              <span><b>자동 계산</b> 자연판매수량</span>
               <strong id="periodOrganicQuantity">0개</strong>
               <small>전체판매수량 - 광고판매수량</small>
             </div>
-            <div class="auto-result-card">
-              <span>반품 및 취소 수량</span>
+            <div class="auto-result-card return-card">
+              <span><b>자동 계산</b> 반품 및 취소 수량</span>
               <strong id="periodReturnDisplay">0개</strong>
               <small>광고판매수량보다 적은 수량 자동 분석</small>
               <input id="periodReturnCount" type="hidden" value="0">
@@ -98,7 +98,7 @@
         </div>
         <div class="cost-row-list compact-cost-grid">
           <label class="cost-row">
-            <span><strong>최종 매입원가 (개당)</strong><small>전체판매수량 기준으로 계산합니다.</small></span>
+            <span><strong>최종 매입원가 (개당)</strong><small>개당 원가</small></span>
             <i><input id="periodProductUnitCost" type="number" min="0" step="100" value="0"><b>원</b></i>
           </label>
           <label class="cost-row category-fee-row">
@@ -124,15 +124,15 @@
             </div>
           </label>
           <label class="cost-row">
-            <span><strong>할인쿠폰 가격 (1장당)</strong><small>쿠폰 부담액을 입력하세요.</small></span>
+            <span><strong>할인쿠폰 가격 (1장당)</strong><small>1장당 금액</small></span>
             <i><input id="periodCouponUnitPrice" type="number" min="0" step="100" value="0"><b>원</b></i>
           </label>
           <label class="cost-row">
-            <span><strong>입출고비 / 배송비</strong><small>개당 VAT 별도 금액입니다.</small></span>
+            <span><strong>입출고비 / 배송비</strong><small>개당 금액</small></span>
             <i><input id="periodShippingCost" type="number" min="0" step="50" value="3650"><b>원</b></i>
           </label>
           <label class="cost-row">
-            <span><strong>기타 비용 합계</strong><small>포장비 등 추가 비용입니다.</small></span>
+            <span><strong>기타 비용 합계</strong><small>합계 입력</small></span>
             <i><input id="periodOtherCost" type="number" min="0" step="100" value="0"><b>원</b></i>
           </label>
         </div>
@@ -182,7 +182,7 @@
       </article>
       <article>
         <h3>3. 실제 비용 보정</h3>
-        <p>카테고리 수수료율, 매입원가, 쿠폰 가격, 윙 배송비, 기타 비용을 입력하면 단순 ROAS가 아니라 판매자가 실제로 남기는 기간 순이익에 가까운 숫자를 볼 수 있습니다.</p>
+        <p>카테고리 수수료율, 매입원가, 쿠폰 가격, 윙 배송비, 기타 비용만 입력하면 판매자가 실제로 남기는 기간 순이익에 가까운 숫자를 볼 수 있습니다.</p>
       </article>
     </div>
   </section>
@@ -194,8 +194,8 @@
       <p>계산 기준을 공개해 사용자가 결과를 검토할 수 있도록 했습니다. 판매자의 정산 방식, 쿠폰 부담 구조, 카테고리 정책에 따라 실제 정산 금액과 차이가 날 수 있으므로 최종 회계 자료가 아니라 운영 의사결정용 참고값으로 사용하세요.</p>
     </div>
     <div class="quality-list">
-      <div><strong>광고 전환매출</strong><span>광고보고서 전환매출에서 할인쿠폰 1장당 가격 × 광고판매수량, 반품된 상품 총 가격을 차감합니다.</span></div>
-      <div><strong>자연전환매출</strong><span>자연판매수량 × (상품가격 - 할인쿠폰 1장당 가격)으로 계산합니다.</span></div>
+      <div><strong>광고 전환매출</strong><span>광고보고서에서 자동 추출한 광고 전환매출을 기준으로 사용합니다.</span></div>
+      <div><strong>자연전환매출</strong><span>자연판매수량 × (광고보고서 기준 상품 단가 - 할인쿠폰 1장당 가격)으로 계산합니다.</span></div>
       <div><strong>기간 순이익</strong><span>광고 전환매출과 자연전환매출 합계에서 광고비 VAT 포함액, 카테고리 수수료 VAT 포함액, 매입원가, 입출고비 VAT 포함액, 기타 비용을 차감합니다.</span></div>
       <div><strong>반품 및 취소</strong><span>전체판매수량이 광고판매수량보다 적을 때 차이를 반품 및 취소 수량으로 자동 계산합니다.</span></div>
     </div>
@@ -246,6 +246,6 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="./main.js?v=saas-period-6"></script>
+  <script src="./main.js?v=saas-period-7"></script>
 </body>
 </html>

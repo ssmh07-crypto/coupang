@@ -26,8 +26,7 @@ function renderPeriod(){
   const organicQuantity=Math.max(0,totalQuantity-adQuantity);
   periodEl.periodReturnCount.value=returnCount;
   const netProductPrice=adReport.productPrice-couponUnit;
-  const returnTotal=returnCount*netProductPrice;
-  const adjustedAdRevenue=Math.max(0,adReport.revenue-couponUnit*adQuantity-returnTotal);
+  const adjustedAdRevenue=adReport.revenue;
   const organicRevenue=organicQuantity*netProductPrice;
   const totalRevenue=adjustedAdRevenue+organicRevenue;
   const adSpendVat=withVat(adReport.spend);
@@ -37,7 +36,8 @@ function renderPeriod(){
   const returnRate=adQuantity?returnCount/adQuantity*100:0;
   const shippingTotal=shippingUnit*totalQuantity;
   const shippingTotalVat=withVat(shippingTotal);
-  const profit=totalRevenue-adSpendVat-categoryFeeVat-productCostTotal-shippingTotalVat-other;
+  const couponTotal=couponUnit*totalQuantity;
+  const profit=totalRevenue-adSpendVat-categoryFeeVat-productCostTotal-shippingTotalVat-couponTotal-other;
   const margin=totalRevenue?profit/totalRevenue*100:0;
   const ringValue=Math.max(0,Math.min(100,margin));
   const profitEl=document.getElementById('periodProfit');
@@ -54,8 +54,7 @@ function renderPeriod(){
   const ring=document.getElementById('periodProfitRing');
   if(ring)ring.style.setProperty('--rate',`${ringValue}%`);
   const revenueTotal=totalRevenue;
-  const couponTotal=couponUnit*totalQuantity;
-  const costTotal=adSpendVat+categoryFeeVat+productCostTotal+shippingTotalVat+other;
+  const costTotal=adSpendVat+categoryFeeVat+productCostTotal+shippingTotalVat+couponTotal+other;
   const breakdownGroups=[
     ['매출',[
       ['광고 전환매출',periodMoney(adjustedAdRevenue),'plus'],
@@ -67,7 +66,7 @@ function renderPeriod(){
       [`카테고리 수수료(${categoryRate.toFixed(1)}%, VAT 포함)`,minus(categoryFeeVat),'minus'],
       ['최종 매입원가',minus(productCostTotal),'minus'],
       ['입출고비 / 배송비(VAT 포함)',minus(shippingTotalVat),'minus'],
-      ['할인쿠폰 차감액',periodMoney(couponTotal),'info'],
+      ['할인쿠폰 차감액',minus(couponTotal),'minus'],
       ['기타 비용',minus(other),'minus'],
       ['비용 합계',minus(costTotal),'subtotal']
     ]],
@@ -78,7 +77,7 @@ function renderPeriod(){
   document.getElementById('periodBreakdown').innerHTML=breakdownGroups.map(([title,items])=>`<section class="breakdown-section"><h3>${title}</h3>${items.map(([label,value,type])=>`<div class="result-cost-row ${type}"><span>${label}</span><strong>${value}</strong></div>`).join('')}</section>`).join('');
   document.getElementById('periodFormulaNumbers').innerHTML=[
     ['매출 합계',`= 광고 전환매출 + 자연판매 매출<br><b>= ${periodMoney(adjustedAdRevenue)} + ${periodMoney(organicRevenue)}</b>`],
-    ['비용 합계',`= 광고비 + 수수료 + 매입원가 + 입출고비 + 기타 비용<br><b>= ${periodMoney(costTotal)}</b>`],
+    ['비용 합계',`= 광고비 + 수수료 + 매입원가 + 입출고비 + 할인쿠폰 + 기타 비용<br><b>= ${periodMoney(costTotal)}</b>`],
     ['기간 순이익',`= 매출 합계 - 비용 합계<br><b>= ${periodMoney(revenueTotal)} - ${periodMoney(costTotal)}</b>`]
   ].map(([title,body])=>`<div><span>${title}</span><p>${body}</p></div>`).join('');
   setText('periodFormulaResult',`= ${periodMoney(profit)}`);
