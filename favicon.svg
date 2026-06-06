@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="쿠팡 기간 순이익 계산기">
+  <rect width="64" height="64" rx="14" fill="#005b49"/>
+  <path d="M18 42V22h28" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 42h18" fill="none" stroke="#dff2ea" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="44" cy="22" r="5" fill="#e8662a"/>
+</svg>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ssmh07-crypto.github.io/coupang/sitemap.xml
+Sitemap: https://coupang-3p5.pages.dev/sitemap.xml
