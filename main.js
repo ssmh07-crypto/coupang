@@ -26,7 +26,8 @@ function renderPeriod(){
   const organicQuantity=Math.max(0,totalQuantity-adQuantity);
   periodEl.periodReturnCount.value=returnCount;
   const netProductPrice=adReport.productPrice-couponUnit;
-  const adjustedAdRevenue=Math.max(0,adReport.revenue-couponUnit*adQuantity);
+  const returnTotal=returnCount*netProductPrice;
+  const adjustedAdRevenue=Math.max(0,adReport.revenue-couponUnit*adQuantity-returnTotal);
   const organicRevenue=organicQuantity*netProductPrice;
   const totalRevenue=adjustedAdRevenue+organicRevenue;
   const adSpendVat=withVat(adReport.spend);
@@ -34,7 +35,6 @@ function renderPeriod(){
   const categoryFeeVat=withVat(categoryFee);
   const productCostTotal=unitCost*totalQuantity;
   const returnRate=adQuantity?returnCount/adQuantity*100:0;
-  const returnTotal=returnCount*netProductPrice;
   const shippingTotal=shippingUnit*totalQuantity;
   const shippingTotalVat=withVat(shippingTotal);
   const profit=totalRevenue-adSpendVat-categoryFeeVat-productCostTotal-shippingTotalVat-other;
