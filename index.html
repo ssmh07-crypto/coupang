@@ -9,6 +9,7 @@
   <meta name="google-adsense-account" content="ca-pub-1435606598199875">
   <meta name="naver-site-verification" content="f0fdf43b2ff2029bdd7c13b52f8ee0c39b3c46b5">
   <link rel="canonical" href="https://coupang-3p5.pages.dev/">
+  <link rel="alternate" type="text/plain" href="./llms.txt" title="LLMs text">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="쿠팡 기간 순이익 계산기">
@@ -44,7 +45,8 @@
         "url": "https://coupang-3p5.pages.dev/",
         "name": "쿠팡 기간 순이익 계산기",
         "inLanguage": "ko-KR",
-        "description": "쿠팡 광고보고서와 쿠팡윙 판매현황을 바탕으로 기간 순이익을 계산하는 무료 도구"
+        "description": "쿠팡 광고보고서와 쿠팡윙 판매현황을 바탕으로 기간 순이익을 계산하는 무료 도구",
+        "dateModified": "2026-06-06"
       },
       {
         "@type": "WebApplication",
@@ -56,11 +58,49 @@
         "inLanguage": "ko-KR",
         "isAccessibleForFree": true,
         "description": "광고비, 카테고리 수수료, 매입원가, 할인쿠폰, 반품/취소, 배송비를 반영해 쿠팡 판매자의 기간 순이익을 계산합니다.",
+        "dateModified": "2026-06-06",
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "KRW"
-        }
+        },
+        "featureList": [
+          "광고보고서 엑셀 분석",
+          "쿠팡윙 전체판매수량 반영",
+          "할인쿠폰 차감",
+          "반품/취소 매출 차감",
+          "VAT 포함 비용 계산",
+          "기간 순이익률 계산"
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://coupang-3p5.pages.dev/#howto",
+        "name": "쿠팡 광고보고서로 기간 순이익 계산하는 방법",
+        "inLanguage": "ko-KR",
+        "totalTime": "PT3M",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "광고보고서 업로드",
+            "text": "쿠팡 광고보고서 엑셀 또는 CSV 파일을 업로드해 광고비, 전환매출, 광고판매수량을 집계합니다."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "전체판매수량 입력",
+            "text": "같은 기간의 쿠팡윙 판매현황 전체판매수량을 입력해 자연판매수량과 반품/취소 수량을 계산합니다."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "비용 입력",
+            "text": "카테고리 수수료율, 매입원가, 할인쿠폰, 입출고비와 배송비, 기타 비용을 입력합니다."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "기간 순이익 확인",
+            "text": "매출 합계에서 VAT 포함 비용을 차감한 기간 순이익과 순이익률을 확인합니다."
+          }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -69,10 +109,34 @@
         "mainEntity": [
           {
             "@type": "Question",
+            "name": "쿠팡 기간 순이익 계산기는 무엇을 계산하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "쿠팡 광고보고서와 쿠팡윙 판매현황을 함께 사용해 광고비, 카테고리 수수료, 매입원가, 할인쿠폰, 반품/취소, 입출고비와 배송비를 반영한 기간 순이익과 순이익률을 계산합니다."
+            }
+          },
+          {
+            "@type": "Question",
             "name": "광고보고서와 쿠팡윙 판매현황의 기간은 같아야 하나요?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "네. 광고판매수량과 전체판매수량을 비교해 자연판매와 반품 수량을 계산하므로 두 자료의 기간을 같게 맞춰야 결과가 의미 있습니다."
+              "text": "네. 광고판매수량과 전체판매수량을 비교해 자연판매와 반품/취소 수량을 계산하므로 두 자료의 조회 기간을 같게 맞춰야 결과가 의미 있습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "반품/취소 매출은 어떻게 계산하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "전체판매수량이 광고판매수량보다 적으면 차이를 반품/취소 수량으로 보고, 반품/취소 매출은 반품/취소 수량에 상품 단가에서 할인쿠폰 1장당 가격을 뺀 순상품 단가를 곱해 계산합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "할인쿠폰은 어떤 매출에서 차감하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "광고 전환매출, 자연판매 매출, 반품/취소 매출 모두에서 쿠폰 단가를 반영합니다. 쿠폰이 상품 단가보다 크면 계산 안정성을 위해 순상품 단가는 0원 아래로 내려가지 않게 처리합니다."
             }
           },
           {
@@ -82,13 +146,37 @@
               "@type": "Answer",
               "text": "기본 선택지는 빠른 계산을 위한 참고값입니다. 상품별 실제 수수료율과 다르면 직접 입력을 선택해 판매자 계정의 실제 수수료율로 수정하세요."
             }
+          },
+          {
+            "@type": "Question",
+            "name": "광고비와 배송비의 VAT는 포함하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "광고비, 카테고리 수수료, 입출고비와 배송비는 VAT 10%를 포함한 비용으로 반영합니다. 매입원가와 기타 비용은 입력한 금액 그대로 사용합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "실제 쿠팡 정산 금액과 차이가 날 수 있나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네. 쿠팡 정책, 쿠폰 부담 주체, 프로모션, 정산 보류, 상품별 수수료, 배송 방식에 따라 실제 정산 금액과 차이가 날 수 있습니다. 이 도구는 운영 의사결정용 참고 계산기입니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "업로드한 광고보고서 파일은 서버로 전송되나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "아니요. 광고보고서 엑셀 또는 CSV 파일은 현재 브라우저에서만 읽고 계산하며 외부 서버로 업로드하지 않습니다."
+            }
           }
         ]
       }
     ]
   }
   </script>
-  <link rel="stylesheet" href="./style.css?v=saas-period-8">
+  <link rel="stylesheet" href="./style.css?v=saas-period-9">
 </head>
 <body>
   <header class="site-topbar wrap">
@@ -97,6 +185,8 @@
       <a href="#periodTab">계산기</a>
       <a href="#guide">사용법</a>
       <a href="#calculation">계산 기준</a>
+      <a href="#methodology">방법론</a>
+      <a href="#example">예시</a>
       <a href="#privacy">데이터 처리</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">문의</a>
@@ -275,6 +365,72 @@
     </div>
   </section>
 
+  <section class="quality-section wrap" id="methodology">
+    <div class="quality-intro">
+      <p class="eyebrow green">GEO ANSWER</p>
+      <h2>쿠팡 기간 순이익 계산 방법론</h2>
+      <p>쿠팡 기간 순이익은 쿠팡 광고보고서의 전환매출과 쿠팡윙 판매현황의 전체판매수량을 같은 기간으로 맞춘 뒤, 쿠폰이 반영된 실제 판매 단가와 VAT 포함 비용을 차감해 계산합니다. 최종 업데이트: 2026-06-06.</p>
+    </div>
+    <div class="answer-grid">
+      <article>
+        <h3>쿠팡 기간 순이익이란?</h3>
+        <p>쿠팡 기간 순이익은 특정 기간의 광고판매, 자연판매, 반품/취소, 광고비, 카테고리 수수료, 매입원가, 입출고비와 배송비, 기타 비용을 한 번에 반영해 판매자가 실제로 남긴 금액을 추정한 값입니다.</p>
+      </article>
+      <article>
+        <h3>어떤 자료가 필요한가요?</h3>
+        <p>쿠팡 광고보고서 엑셀 또는 CSV 파일, 같은 기간의 쿠팡윙 비즈니스인사이트 판매현황 전체판매수량, 개당 매입원가, 카테고리 수수료율, 쿠폰 단가, 배송 관련 비용이 필요합니다.</p>
+      </article>
+      <article>
+        <h3>왜 광고보고서만으로 부족한가요?</h3>
+        <p>광고보고서는 광고 성과 중심 자료라 자연판매, 반품/취소, 매입원가, 배송비, 기타 비용을 모두 설명하지 않습니다. 이 계산기는 누락 비용을 보정해 손익 판단에 가까운 숫자를 제공합니다.</p>
+      </article>
+    </div>
+    <div class="quality-list formula-list">
+      <div><strong>상품 단가</strong><span>광고보고서 전환매출 ÷ 광고판매수량으로 추정합니다.</span></div>
+      <div><strong>순상품 단가</strong><span>상품 단가 - 할인쿠폰 1장당 가격입니다. 계산 안정성을 위해 0원 아래로 내려가지 않게 처리합니다.</span></div>
+      <div><strong>광고 전환매출</strong><span>광고보고서 전환매출 - 광고판매수량 × 할인쿠폰 1장당 가격입니다.</span></div>
+      <div><strong>자연판매 매출</strong><span>자연판매수량 × 순상품 단가입니다. 자연판매수량은 전체판매수량이 광고판매수량보다 많을 때의 차이입니다.</span></div>
+      <div><strong>반품/취소 매출</strong><span>반품/취소 수량 × 순상품 단가입니다. 반품/취소 수량은 광고판매수량이 전체판매수량보다 많을 때의 차이입니다.</span></div>
+      <div><strong>비용 합계</strong><span>광고비×1.1 + 카테고리 수수료×1.1 + 매입원가 + 배송비×1.1 + 기타 비용입니다.</span></div>
+      <div><strong>기간 순이익</strong><span>광고 전환매출 + 자연판매 매출 - 반품/취소 매출 - 비용 합계입니다.</span></div>
+      <div><strong>순이익률</strong><span>기간 순이익 ÷ 매출 합계 × 100으로 표시합니다.</span></div>
+    </div>
+  </section>
+
+  <section class="quality-section wrap" id="example">
+    <div class="quality-intro">
+      <p class="eyebrow green">EXAMPLE</p>
+      <h2>예시 계산: 매출이 있어도 손실이 나는 경우</h2>
+      <p>광고판매수량 100개, 광고 전환매출 1,000,000원, 전체판매수량 120개, 쿠폰 1,000원, 식품 수수료율 10.6%, 매입원가 4,000원, 배송비 3,650원, 광고비 80,000원으로 계산한 예시입니다.</p>
+    </div>
+    <div class="example-grid">
+      <article>
+        <h3>매출 계산</h3>
+        <ul>
+          <li>상품 단가: 10,000원</li>
+          <li>순상품 단가: 9,000원</li>
+          <li>쿠폰 차감 광고 전환매출: 900,000원</li>
+          <li>자연판매 매출: 180,000원</li>
+          <li>매출 합계: 1,080,000원</li>
+        </ul>
+      </article>
+      <article>
+        <h3>비용 계산</h3>
+        <ul>
+          <li>광고비 VAT 포함: 88,000원</li>
+          <li>카테고리 수수료 VAT 포함: 125,928원</li>
+          <li>매입원가: 480,000원</li>
+          <li>배송비 VAT 포함: 481,800원</li>
+          <li>비용 합계: 1,175,728원</li>
+        </ul>
+      </article>
+      <article class="example-result">
+        <h3>결과</h3>
+        <p>기간 순이익은 -95,728원, 순이익률은 -8.9%입니다. 매출만 보면 성장처럼 보이지만 쿠폰, 배송비, 수수료, 광고비를 함께 반영하면 손실 구조를 빠르게 확인할 수 있습니다.</p>
+      </article>
+    </div>
+  </section>
+
   <section class="quality-section wrap" id="privacy">
     <div class="quality-intro">
       <p class="eyebrow green">PRIVACY</p>
@@ -300,12 +456,36 @@
     </div>
     <div class="faq-list">
       <details open>
+        <summary>쿠팡 기간 순이익 계산기는 무엇을 계산하나요?</summary>
+        <p>쿠팡 광고보고서와 쿠팡윙 판매현황을 함께 사용해 광고비, 카테고리 수수료, 매입원가, 할인쿠폰, 반품/취소, 입출고비와 배송비를 반영한 기간 순이익과 순이익률을 계산합니다.</p>
+      </details>
+      <details>
         <summary>광고보고서와 쿠팡윙 판매현황의 기간은 같아야 하나요?</summary>
-        <p>네. 광고판매수량과 전체판매수량을 비교해 자연판매와 반품 수량을 계산하므로 두 자료의 기간을 같게 맞춰야 결과가 의미 있습니다.</p>
+        <p>네. 광고판매수량과 전체판매수량을 비교해 자연판매와 반품/취소 수량을 계산하므로 두 자료의 조회 기간을 같게 맞춰야 결과가 의미 있습니다.</p>
+      </details>
+      <details>
+        <summary>반품/취소 매출은 어떻게 계산하나요?</summary>
+        <p>전체판매수량이 광고판매수량보다 적으면 차이를 반품/취소 수량으로 보고, 반품/취소 매출은 반품/취소 수량에 상품 단가에서 할인쿠폰 1장당 가격을 뺀 순상품 단가를 곱해 계산합니다.</p>
+      </details>
+      <details>
+        <summary>할인쿠폰은 어떤 매출에서 차감하나요?</summary>
+        <p>광고 전환매출, 자연판매 매출, 반품/취소 매출 모두에서 쿠폰 단가를 반영합니다. 쿠폰이 상품 단가보다 크면 계산 안정성을 위해 순상품 단가는 0원 아래로 내려가지 않게 처리합니다.</p>
       </details>
       <details>
         <summary>카테고리 수수료율은 자동으로 정확한가요?</summary>
         <p>기본 선택지는 빠른 계산을 위한 참고값입니다. 상품별 실제 수수료율과 다르면 직접 입력을 선택해 판매자 계정의 실제 수수료율로 수정하세요.</p>
+      </details>
+      <details>
+        <summary>광고비와 배송비의 VAT는 포함하나요?</summary>
+        <p>광고비, 카테고리 수수료, 입출고비와 배송비는 VAT 10%를 포함한 비용으로 반영합니다. 매입원가와 기타 비용은 입력한 금액 그대로 사용합니다.</p>
+      </details>
+      <details>
+        <summary>실제 쿠팡 정산 금액과 차이가 날 수 있나요?</summary>
+        <p>네. 쿠팡 정책, 쿠폰 부담 주체, 프로모션, 정산 보류, 상품별 수수료, 배송 방식에 따라 실제 정산 금액과 차이가 날 수 있습니다. 이 도구는 운영 의사결정용 참고 계산기입니다.</p>
+      </details>
+      <details>
+        <summary>업로드한 광고보고서 파일은 서버로 전송되나요?</summary>
+        <p>아니요. 광고보고서 엑셀 또는 CSV 파일은 현재 브라우저에서만 읽고 계산하며 외부 서버로 업로드하지 않습니다.</p>
       </details>
     </div>
   </section>
