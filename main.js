@@ -26,18 +26,18 @@ function renderPeriod(){
   const organicQuantity=Math.max(0,totalQuantity-adQuantity);
   periodEl.periodReturnCount.value=returnCount;
   const netProductPrice=adReport.productPrice-couponUnit;
+  const adjustedAdRevenue=Math.max(0,adReport.revenue-couponUnit*adQuantity);
   const organicRevenue=organicQuantity*netProductPrice;
-  const totalRevenue=adReport.revenue+organicRevenue;
+  const totalRevenue=adjustedAdRevenue+organicRevenue;
   const adSpendVat=withVat(adReport.spend);
   const categoryFee=totalRevenue*categoryRate/100;
   const categoryFeeVat=withVat(categoryFee);
   const productCostTotal=unitCost*totalQuantity;
   const returnRate=adQuantity?returnCount/adQuantity*100:0;
   const returnTotal=returnCount*netProductPrice;
-  const couponTotal=couponUnit*totalQuantity;
   const shippingTotal=shippingUnit*totalQuantity;
   const shippingTotalVat=withVat(shippingTotal);
-  const profit=totalRevenue-adSpendVat-categoryFeeVat-productCostTotal-couponTotal-shippingTotalVat-other;
+  const profit=totalRevenue-adSpendVat-categoryFeeVat-productCostTotal-shippingTotalVat-other;
   const margin=totalRevenue?profit/totalRevenue*100:0;
   const ringValue=Math.max(0,Math.min(100,margin));
   const profitEl=document.getElementById('periodProfit');
@@ -45,6 +45,7 @@ function renderPeriod(){
   profitEl.classList.toggle('loss',profit<0);
   setText('periodOrganicQuantity',`${won.format(organicQuantity)}개`);
   setText('periodOrganicRevenue',periodMoney(organicRevenue));
+  setText('periodAdRevenue',periodMoney(adjustedAdRevenue));
   setText('periodMargin',`총 전환매출 대비 순이익률 ${margin.toFixed(1)}%`);
   setText('periodProfitRate',`${margin.toFixed(0)}%`);
   setText('periodSummaryState',!adReport.rows?'보고서 대기':profit>=0?'수익 구간':'손실 구간');
@@ -54,19 +55,17 @@ function renderPeriod(){
   const ring=document.getElementById('periodProfitRing');
   if(ring)ring.style.setProperty('--rate',`${ringValue}%`);
   const rows=[
-    ['광고 전환매출',periodMoney(adReport.revenue),'plus'],
+    ['광고 전환매출',periodMoney(adjustedAdRevenue),'plus'],
     ['자연전환매출',periodMoney(organicRevenue),'plus'],
     ['광고비 (VAT 포함)',minus(adSpendVat),'minus'],
     [`카테고리 수수료 (${categoryRate.toFixed(1)}%, VAT 포함)`,minus(categoryFeeVat),'minus'],
     ['최종 매입원가',minus(productCostTotal),'minus'],
-    ['반품된 상품 총 가격 (순이익 제외)',periodMoney(returnTotal),'neutral'],
-    ['할인쿠폰 차감액',minus(couponTotal),'minus'],
     ['로켓그로스 입출고비(윙 배송비, VAT 포함)',minus(shippingTotalVat),'minus'],
     ['기타 비용 합계',minus(other),'minus'],
     ['기간 순이익',periodMoney(profit),profit<0?'loss':'total']
   ];
   document.getElementById('periodBreakdown').innerHTML=rows.map(([label,value,type])=>`<div class="result-cost-row ${type}"><span>${label}</span><strong>${value}</strong></div>`).join('');
-  setText('periodFormulaNumbers',`= ${won.format(Math.round(adReport.revenue))} + (${won.format(Math.round(netProductPrice))} × ${won.format(organicQuantity)}) - ${won.format(Math.round(adReport.spend))} × 1.1 - ${won.format(Math.round(categoryFee))} × 1.1 - ${won.format(Math.round(productCostTotal))} - (${won.format(Math.round(couponUnit))} × ${won.format(totalQuantity)}) - (${won.format(Math.round(shippingUnit))} × ${won.format(totalQuantity)} × 1.1) - ${won.format(Math.round(other))}`);
+  setText('periodFormulaNumbers',`= ${won.format(Math.round(adjustedAdRevenue))} + (${won.format(Math.round(netProductPrice))} × ${won.format(organicQuantity)}) - ${won.format(Math.round(adReport.spend))} × 1.1 - ${won.format(Math.round(categoryFee))} × 1.1 - ${won.format(Math.round(productCostTotal))} - (${won.format(Math.round(shippingUnit))} × ${won.format(totalQuantity)} × 1.1) - ${won.format(Math.round(other))}`);
   setText('periodFormulaResult',`= ${periodMoney(profit)}`);
 }
 function reportNumber(value){if(typeof value==='number')return value;return Number(String(value??'').replace(/,/g,''))||0}
@@ -75,7 +74,6 @@ function reportText(value){return String(value??'').trim()}
 function campaignRange(rows){const starts=[...new Set(rows.map(row=>reportText(row['캠페인 시작일'])).filter(value=>value&&value!=='-'))].sort(),ends=[...new Set(rows.map(row=>reportText(row['캠페인 종료일'])).filter(value=>value&&value!=='-'))].sort();return{start:starts[0]||'',end:ends.at(-1)||''}}
 function renderAdReport(){
   setText('periodAdSpend',periodMoney(withVat(adReport.spend)));
-  setText('periodAdRevenue',periodMoney(adReport.revenue));
   setText('periodSoldQuantity',`${won.format(adReport.quantity)}개`);
   setText('periodRowCount',adReport.rows?`${won.format(adReport.rows)}개 행 분석 완료`:'0개 행');
   setText('periodFileName',adReport.fileName||'선택된 파일 없음');
