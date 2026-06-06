@@ -27,7 +27,7 @@ function renderPeriod(){
   periodEl.periodReturnCount.value=returnCount;
   const netProductPrice=adReport.productPrice-couponUnit;
   const adjustedAdRevenue=Math.max(0,adReport.revenue-couponUnit*adQuantity);
-  const returnRevenue=returnCount*adReport.productPrice;
+  const returnRevenue=returnCount*netProductPrice;
   const organicRevenue=organicQuantity*netProductPrice;
   const totalRevenue=adjustedAdRevenue+organicRevenue-returnRevenue;
   const adSpendVat=withVat(adReport.spend);
