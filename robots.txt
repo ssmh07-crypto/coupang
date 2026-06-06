@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ssmh07-crypto.github.io/coupang/sitemap.xml

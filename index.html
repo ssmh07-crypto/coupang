@@ -3,9 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="쿠팡 광고보고서와 쿠팡윙 판매현황을 바탕으로 광고비, 수수료, 반품, 쿠폰, 입출고비를 반영해 기간 순이익을 계산하는 무료 도구입니다.">
+  <meta name="description" content="쿠팡 광고보고서와 쿠팡윙 판매현황을 업로드해 광고비, 수수료, 매입원가, 쿠폰, 반품/취소, 배송비를 반영한 기간 순이익을 계산하는 무료 도구입니다.">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="author" content="쿠팡 기간 순이익 계산기">
   <meta name="google-adsense-account" content="ca-pub-1435606598199875">
-  <title>쿠팡 광고보고서 순이익 계산기 | 광고비·수수료·반품 반영</title>
+  <link rel="canonical" href="https://ssmh07-crypto.github.io/coupang/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="쿠팡 기간 순이익 계산기">
+  <meta property="og:title" content="쿠팡 광고보고서 순이익 계산기">
+  <meta property="og:description" content="쿠팡 광고보고서와 쿠팡윙 판매현황을 바탕으로 광고비, 수수료, 쿠폰, 반품/취소, 배송비를 반영해 기간 순이익을 계산합니다.">
+  <meta property="og:url" content="https://ssmh07-crypto.github.io/coupang/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="쿠팡 광고보고서 순이익 계산기">
+  <meta name="twitter:description" content="쿠팡 판매자의 광고비, 수수료, 쿠폰, 반품/취소를 반영한 무료 기간 순이익 계산 도구입니다.">
+  <title>쿠팡 광고보고서 순이익 계산기 | 쿠팡윙 판매현황·수수료·반품 반영</title>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1435606598199875" crossorigin="anonymous"></script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-39S8C93TWE"></script>
@@ -16,7 +28,61 @@
 
     gtag('config', 'G-39S8C93TWE');
   </script>
-  <link rel="stylesheet" href="./style.css?v=saas-period-6">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://ssmh07-crypto.github.io/coupang/#website",
+        "url": "https://ssmh07-crypto.github.io/coupang/",
+        "name": "쿠팡 기간 순이익 계산기",
+        "inLanguage": "ko-KR",
+        "description": "쿠팡 광고보고서와 쿠팡윙 판매현황을 바탕으로 기간 순이익을 계산하는 무료 도구"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://ssmh07-crypto.github.io/coupang/#app",
+        "url": "https://ssmh07-crypto.github.io/coupang/",
+        "name": "쿠팡 광고보고서 순이익 계산기",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "ko-KR",
+        "isAccessibleForFree": true,
+        "description": "광고비, 카테고리 수수료, 매입원가, 할인쿠폰, 반품/취소, 배송비를 반영해 쿠팡 판매자의 기간 순이익을 계산합니다.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "KRW"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssmh07-crypto.github.io/coupang/#faq",
+        "inLanguage": "ko-KR",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "광고보고서와 쿠팡윙 판매현황의 기간은 같아야 하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네. 광고판매수량과 전체판매수량을 비교해 자연판매와 반품 수량을 계산하므로 두 자료의 기간을 같게 맞춰야 결과가 의미 있습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "카테고리 수수료율은 자동으로 정확한가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "기본 선택지는 빠른 계산을 위한 참고값입니다. 상품별 실제 수수료율과 다르면 직접 입력을 선택해 판매자 계정의 실제 수수료율로 수정하세요."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="./style.css?v=saas-period-7">
 </head>
 <body>
   <header class="site-topbar wrap">
@@ -30,14 +96,15 @@
       <a href="#contact">문의</a>
     </nav>
   </header>
+  <main id="main-content">
   <section class="period-section wrap tab-panel active" id="periodTab">
     <div class="profit-app-shell">
       <section class="profit-input-card">
         <div class="profit-section-head">
           <span>01</span>
           <div>
-            <h2>광고보고서 업로드</h2>
-            <p>쿠팡 광고보고서를 업로드하면 핵심 매출 지표를 자동으로 불러옵니다.</p>
+            <h1>쿠팡 광고보고서 순이익 계산기</h1>
+            <p>광고보고서 업로드 후 쿠팡윙 전체판매수량과 비용을 입력하면 기간 순이익을 계산합니다.</p>
           </div>
         </div>
         <div class="upload-panel">
@@ -237,7 +304,6 @@
     </div>
   </section>
 
-
   <section class="quality-section contact-section wrap" id="contact">
     <div class="quality-intro">
       <p class="eyebrow green">CONTACT</p>
@@ -270,11 +336,13 @@
     </form>
   </section>
 
+  </main>
+
   <div class="site-footer wrap">
     <span>쿠팡 광고보고서 기간 순이익 계산기</span>
     <span><a href="#contact">문의 및 개선 요청</a> · 운영 참고용 계산 도구이며 실제 정산 금액과 차이가 있을 수 있습니다.</span>
   </div>
 
-  <script src="./main.js?v=saas-period-9"></script>
+  <script src="./main.js?v=saas-period-10"></script>
 </body>
 </html>
