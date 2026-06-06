@@ -14,7 +14,7 @@
 
     gtag('config', 'G-39S8C93TWE');
   </script>
-  <link rel="stylesheet" href="./style.css?v=saas-period-1">
+  <link rel="stylesheet" href="./style.css?v=saas-period-2">
 </head>
 <body>
   <section class="period-section wrap tab-panel active" id="periodTab">
@@ -58,6 +58,28 @@
           </div>
         </div>
         <div class="cost-row-list">
+          <label class="cost-row category-fee-row">
+            <span><strong>카테고리 수수료</strong><small>카테고리를 선택하면 수수료율이 자동 입력됩니다.</small></span>
+            <div class="category-fee-controls">
+              <select id="periodCategory">
+                <option value="10.8">가구/홈인테리어</option>
+                <option value="7.8">가전디지털</option>
+                <option value="10.8">도서/음반/문구</option>
+                <option value="10.0">출산/유아</option>
+                <option value="10.8">스포츠/레저</option>
+                <option value="9.6">뷰티</option>
+                <option value="7.8">생활용품</option>
+                <option value="10.6" selected>식품</option>
+                <option value="10.8">완구/취미</option>
+                <option value="10.0">자동차용품</option>
+                <option value="10.8">주방용품</option>
+                <option value="10.5">패션</option>
+                <option value="10.8">반려/애완용품</option>
+                <option value="custom">직접 입력</option>
+              </select>
+              <i><input id="periodCategoryFeeRate" type="number" min="0" max="100" step="0.1" value="10.6"><b>%</b></i>
+            </div>
+          </label>
           <label class="cost-row">
             <span><strong>최종 매입원가 (개당)</strong><small>판매된 수량과 곱해 매입원가 합계를 계산합니다.</small></span>
             <i><input id="periodProductUnitCost" type="number" min="0" step="100" value="0"><b>원</b></i>
@@ -69,11 +91,11 @@
             </div>
             <div class="return-mini-grid">
               <div><span>반품률</span><strong id="periodReturnRate">0.0%</strong><small>반품수량 ÷ (판매된 수량 + 반품수량)</small></div>
-              <div><span>반품된 상품 총 가격</span><strong id="periodReturnTotal">0원</strong><small>반품수량 × 상품가격</small></div>
+              <div><span>반품된 상품 총 가격</span><strong id="periodReturnTotal">0원</strong><small>반품수량 × (상품가격 - 할인쿠폰 1장당 가격)</small></div>
             </div>
           </div>
           <div class="cost-row readonly-row">
-            <span><strong>반품된 상품 총 가격</strong><small>반품수량 × 상품가격으로 자동 계산됩니다.</small></span>
+            <span><strong>반품된 상품 총 가격</strong><small>반품수량 × (상품가격 - 할인쿠폰 1장당 가격)으로 자동 계산됩니다.</small></span>
             <output id="periodReturnTotalInput">0원</output>
           </div>
           <label class="cost-row">
@@ -81,8 +103,8 @@
             <i><input id="periodCouponUnitPrice" type="number" min="0" step="100" value="0"><b>원</b></i>
           </label>
           <label class="cost-row">
-            <span><strong>배송비 합계</strong><small>기간 중 부담한 배송비 합계를 입력하세요.</small></span>
-            <i><input id="periodShippingCost" type="number" min="0" step="100" value="0"><b>원</b></i>
+            <span><strong>로켓그로스 입출고비(윙 배송비)</strong><small>판매된 수량과 곱해 차감합니다.</small></span>
+            <i><input id="periodShippingCost" type="number" min="0" step="50" value="3650"><b>원</b></i>
           </label>
           <label class="cost-row">
             <span><strong>기타 비용 합계</strong><small>포장비, 기타 운영비 등 추가 비용을 입력하세요.</small></span>
@@ -96,7 +118,6 @@
             <p class="eyebrow green">PERIOD NET PROFIT</p>
             <h2>기간 순이익</h2>
           </div>
-          <button class="recalc-btn" type="button" id="periodRecalculate">다시 계산</button>
         </div>
         <div class="profit-hero-box">
           <div>
@@ -109,13 +130,13 @@
         <div class="result-cost-list" id="periodBreakdown"></div>
         <div class="formula-box">
           <strong>순이익 계산식</strong>
-          <p>순이익 = 광고 전환매출 - 광고비 - 매입원가 - 반품된 상품 총 가격 - 할인쿠폰 차감액 - 배송비 - 기타 비용</p>
+          <p>순이익 = 광고 전환매출 - 광고비 - 카테고리 수수료 - 매입원가 - 반품된 상품 총 가격 - 할인쿠폰 차감액 - 입출고비 - 기타 비용</p>
           <code id="periodFormulaNumbers">= 0 - 0 - 0 - 0 - (0 × 0) - 0 - 0</code>
           <b id="periodFormulaResult">= 0원</b>
         </div>
         <div class="period-note guidance-box">
           <p>반품수량은 광고보고서에 포함되지 않으므로 직접 입력해야 합니다.</p>
-          <p>반품된 상품 총 가격은 반품수량 × 상품가격으로 계산됩니다.</p>
+          <p>반품된 상품 총 가격은 반품수량 × (상품가격 - 할인쿠폰 1장당 가격)으로 계산됩니다.</p>
           <p>할인쿠폰 가격은 1장당 가격이며, 판매된 수량만큼 차감됩니다.</p>
           <p>모든 금액은 원화 기준이며, 실제 정산 금액과 차이가 발생할 수 있습니다.</p>
         </div>
