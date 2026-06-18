@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="쿠팡 광고보고서와 쿠팡윙 판매현황으로 기간 순이익을 계산하는 준비 자료, 입력 순서, 결과 해석 방법을 안내합니다.">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+  <link rel="canonical" href="https://coupang-3p5.pages.dev/guide.html">
+  <title>계산 가이드 | 쿠팡 광고보고서 순이익 계산기</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css?v=saas-period-10">
+</head>
+<body>
+  <header class="site-topbar wrap">
+    <a class="site-brand" href="/">쿠팡 기간 순이익 계산기</a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <a href="/">계산기</a>
+      <a href="/about.html">소개</a>
+      <a href="/roas-profit.html">ROAS</a>
+      <a href="/privacy.html">개인정보</a>
+      <a href="/terms.html">이용 안내</a>
+      <a href="/#contact">문의</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="quality-section wrap">
+      <div class="quality-intro">
+        <p class="eyebrow green">GUIDE</p>
+        <h1>쿠팡 광고보고서 순이익 계산 가이드</h1>
+        <p>정확한 기간 순이익을 보려면 광고보고서와 판매현황의 조회 기간을 먼저 맞춰야 합니다. 이후 광고보고서 파일을 업로드하고, 같은 기간의 전체판매수량과 비용 항목을 입력하면 광고판매, 자연판매, 반품/취소를 나눠 손익을 계산할 수 있습니다.</p>
+      </div>
+      <div class="quality-grid">
+        <article>
+          <h2>1. 기간 맞추기</h2>
+          <p>광고보고서의 조회 기간과 쿠팡윙 비즈니스인사이트 판매현황 기간을 동일하게 설정합니다. 기간이 다르면 광고판매수량과 전체판매수량의 차이가 자연판매 또는 반품/취소로 잘못 계산될 수 있습니다.</p>
+        </article>
+        <article>
+          <h2>2. 광고보고서 준비</h2>
+          <p>쿠팡 광고보고서에서 엑셀, XLS, CSV 형식의 파일을 내려받습니다. 계산기는 광고비, 총 전환매출액, 총 판매수량 열을 읽어 광고 성과를 집계합니다.</p>
+        </article>
+        <article>
+          <h2>3. 판매수량 확인</h2>
+          <p>쿠팡윙 판매현황에서 같은 기간의 전체판매수량을 확인합니다. 전체판매수량이 광고판매수량보다 크면 차이를 자연판매수량으로 보고, 작으면 반품 및 취소 수량으로 봅니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="quality-section wrap">
+      <div class="quality-intro">
+        <p class="eyebrow green">INPUTS</p>
+        <h2>비용 입력 기준</h2>
+        <p>광고보고서에는 모든 비용이 들어 있지 않으므로 판매자가 실제 운영 비용을 직접 입력해야 합니다. 상품 단위 비용은 전체판매수량 기준으로 곱해지고, 합계 비용은 입력값 그대로 반영됩니다.</p>
+      </div>
+      <div class="quality-list">
+        <div><strong>최종 매입원가</strong><span>상품 1개를 판매할 때 발생하는 매입원가입니다. 포장재나 사은품을 원가에 포함해 관리한다면 개당 평균값으로 입력합니다.</span></div>
+        <div><strong>카테고리 수수료율</strong><span>기본 선택지는 빠른 계산을 위한 참고값입니다. 실제 상품별 수수료율이 다르면 직접 입력으로 수정합니다.</span></div>
+        <div><strong>할인쿠폰 가격</strong><span>판매자 부담 쿠폰이 있다면 1장당 금액을 입력합니다. 쿠폰 부담 주체가 다르거나 일부 상품에만 적용된다면 평균값으로 보정해야 합니다.</span></div>
+        <div><strong>입출고비와 배송비</strong><span>로켓그로스, 일반 배송, 위탁 배송 등 운영 방식에 따라 개당 배송 관련 비용을 입력합니다. 계산기는 VAT 10%를 포함해 비용으로 반영합니다.</span></div>
+        <div><strong>기타 비용</strong><span>촬영비, 외주비, 포장 부자재, 정산 외 수수료처럼 기간 전체에 배분할 비용이 있으면 합계로 입력합니다.</span></div>
+      </div>
+    </section>
+
+    <section class="quality-section wrap">
+      <div class="quality-intro">
+        <p class="eyebrow green">READING RESULTS</p>
+        <h2>결과 해석 방법</h2>
+        <p>기간 순이익이 양수라도 재고 보유 비용, 세금, 인건비까지 모두 반영된 최종 회계 이익은 아닐 수 있습니다. 반대로 계산 결과가 손실이면 광고비, 쿠폰, 배송비, 수수료 중 어느 항목이 이익을 압박하는지 먼저 확인하는 것이 좋습니다.</p>
+      </div>
+      <div class="example-grid">
+        <article>
+          <h2>순이익률이 낮은 경우</h2>
+          <p>매출 규모보다 배송비, 쿠폰, 광고비 비중이 높은지 확인합니다. 특히 객단가가 낮은 상품은 배송비와 수수료가 이익률을 빠르게 낮출 수 있습니다.</p>
+        </article>
+        <article>
+          <h2>자연판매가 많은 경우</h2>
+          <p>광고가 직접 만든 매출 외에 자연판매가 함께 발생한 상황입니다. 광고비를 즉시 줄이기보다 자연판매 유지 여부를 함께 관찰해야 합니다.</p>
+        </article>
+        <article>
+          <h2>반품/취소가 많은 경우</h2>
+          <p>광고판매수량보다 전체판매수량이 적게 입력되면 차이가 반품/취소로 반영됩니다. 기간 불일치가 아닌지 먼저 확인한 뒤 실제 반품률을 검토합니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="quality-section wrap">
+      <div class="quality-intro">
+        <p class="eyebrow green">RELATED GUIDES</p>
+        <h2>함께 보면 좋은 실무 가이드</h2>
+        <p>계산기 입력을 마친 뒤에는 결과가 왜 그렇게 나왔는지 해석해야 합니다. 아래 문서는 광고비, 쿠폰, 배송비, 반품처럼 순이익에 큰 영향을 주는 항목을 따로 설명합니다.</p>
+      </div>
+      <div class="quality-grid">
+        <article>
+          <h2>ROAS와 순이익</h2>
+          <p><a href="/roas-profit.html">광고 ROAS와 실제 순이익이 다른 이유</a>를 먼저 확인하면 광고 증액 여부를 더 보수적으로 판단할 수 있습니다.</p>
+        </article>
+        <article>
+          <h2>쿠폰 비용</h2>
+          <p><a href="/coupon-cost.html">판매자 부담 쿠폰을 매출에서 차감하는 기준</a>을 알면 쿠폰 프로모션의 실제 마진을 점검할 수 있습니다.</p>
+        </article>
+        <article>
+          <h2>배송비와 반품</h2>
+          <p><a href="/shipping-fee.html">배송비 반영 방법</a>과 <a href="/returns-cancel.html">반품 및 취소 수량 점검 방법</a>을 함께 보면 순이익 과대 계산을 줄일 수 있습니다.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <div class="site-footer wrap">
+    <span>쿠팡 광고보고서 기간 순이익 계산기</span>
+    <span><a href="/">계산기</a> · <a href="/about.html">소개</a> · <a href="/roas-profit.html">ROAS</a> · <a href="/coupon-cost.html">쿠폰 비용</a> · <a href="/terms.html">이용 안내</a></span>
+  </div>
+</body>
+</html>

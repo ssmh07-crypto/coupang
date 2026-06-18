@@ -2,7 +2,7 @@
 
 Canonical URL: https://coupang-3p5.pages.dev/
 Language: ko-KR
-Last updated: 2026-06-06
+Last updated: 2026-06-18
 
 ## Summary
 쿠팡 기간 순이익 계산기는 쿠팡 광고보고서와 쿠팡윙 판매현황을 바탕으로 광고비, 카테고리 수수료, 매입원가, 할인쿠폰, 반품/취소, 입출고비와 배송비를 반영해 기간 순이익과 순이익률을 계산하는 무료 웹 도구입니다.
@@ -34,3 +34,19 @@ Last updated: 2026-06-06
 
 ## Contact
 문의와 개선 요청: https://coupang-3p5.pages.dev/#contact
+
+## Site pages
+- Calculator: https://coupang-3p5.pages.dev/
+- Guide: https://coupang-3p5.pages.dev/guide.html
+- About: https://coupang-3p5.pages.dev/about.html
+- Privacy: https://coupang-3p5.pages.dev/privacy.html
+- Terms: https://coupang-3p5.pages.dev/terms.html
+- ROAS and profit: https://coupang-3p5.pages.dev/roas-profit.html
+- Coupon cost: https://coupang-3p5.pages.dev/coupon-cost.html
+- Shipping fee: https://coupang-3p5.pages.dev/shipping-fee.html
+- Returns and cancellation: https://coupang-3p5.pages.dev/returns-cancel.html
+- Break-even ad spend: https://coupang-3p5.pages.dev/break-even-ad-spend.html
+- Monthly checklist: https://coupang-3p5.pages.dev/monthly-checklist.html
+
+## Independence notice
+이 사이트는 쿠팡 또는 Coupang Corp.와 공식 제휴, 후원, 보증 관계가 없는 독립 계산 도구입니다. 서비스명은 사용자가 자료 출처와 계산 맥락을 이해할 수 있도록 설명 목적으로만 언급합니다.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="쿠팡 광고보고서와 판매현황으로 광고비·수수료·반품을 반영한 순이익 계산기">
+  <meta name="description" content="쿠팡 광고보고서와 판매현황으로 광고비·수수료·반품을 반영한 순이익을 브라우저에서 계산하는 무료 판매자 도구">
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
   <meta name="author" content="쿠팡 기간 순이익 계산기">
   <meta name="google-adsense-account" content="ca-pub-1435606598199875">
@@ -14,11 +14,11 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="쿠팡 기간 순이익 계산기">
   <meta property="og:title" content="쿠팡 광고보고서 순이익 계산기">
-  <meta property="og:description" content="쿠팡 광고보고서와 판매현황으로 광고비·수수료·반품을 반영한 순이익 계산기">
+  <meta property="og:description" content="쿠팡 광고보고서와 판매현황으로 광고비·수수료·반품을 반영한 순이익을 브라우저에서 계산하는 무료 판매자 도구">
   <meta property="og:url" content="https://coupang-3p5.pages.dev/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="쿠팡 광고보고서 순이익 계산기">
-  <meta name="twitter:description" content="쿠팡 광고보고서와 판매현황으로 광고비·수수료·반품을 반영한 순이익 계산기">
+  <meta name="twitter:description" content="쿠팡 광고보고서와 판매현황으로 광고비·수수료·반품을 반영한 순이익을 브라우저에서 계산하는 무료 판매자 도구">
   <title>쿠팡 광고보고서 순이익 계산기 | 쿠팡윙 판매현황·수수료·반품 반영</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +46,7 @@
         "name": "쿠팡 기간 순이익 계산기",
         "inLanguage": "ko-KR",
         "description": "쿠팡 광고보고서와 쿠팡윙 판매현황을 바탕으로 기간 순이익을 계산하는 무료 도구",
-        "dateModified": "2026-06-06"
+        "dateModified": "2026-06-18"
       },
       {
         "@type": "WebApplication",
@@ -58,7 +58,7 @@
         "inLanguage": "ko-KR",
         "isAccessibleForFree": true,
         "description": "광고비, 카테고리 수수료, 매입원가, 할인쿠폰, 반품/취소, 배송비를 반영해 쿠팡 판매자의 기간 순이익을 계산합니다.",
-        "dateModified": "2026-06-06",
+        "dateModified": "2026-06-18",
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -176,19 +176,21 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="./style.css?v=saas-period-9">
+  <link rel="stylesheet" href="./style.css?v=saas-period-10">
 </head>
 <body>
   <header class="site-topbar wrap">
     <a class="site-brand" href="#periodTab">쿠팡 기간 순이익 계산기</a>
     <nav class="site-nav" aria-label="주요 메뉴">
       <a href="#periodTab">계산기</a>
-      <a href="#guide">사용법</a>
+      <a href="/guide.html">계산 가이드</a>
+      <a href="/roas-profit.html">ROAS</a>
       <a href="#calculation">계산 기준</a>
       <a href="#methodology">방법론</a>
       <a href="#example">예시</a>
-      <a href="#privacy">데이터 처리</a>
+      <a href="/privacy.html">개인정보</a>
       <a href="#faq">FAQ</a>
+      <a href="/about.html">소개</a>
       <a href="#contact">문의</a>
     </nav>
   </header>
@@ -369,7 +371,7 @@
     <div class="quality-intro">
       <p class="eyebrow green">GEO ANSWER</p>
       <h2>쿠팡 기간 순이익 계산 방법론</h2>
-      <p>쿠팡 기간 순이익은 쿠팡 광고보고서의 전환매출과 쿠팡윙 판매현황의 전체판매수량을 같은 기간으로 맞춘 뒤, 쿠폰이 반영된 실제 판매 단가와 VAT 포함 비용을 차감해 계산합니다. 최종 업데이트: 2026-06-06.</p>
+      <p>쿠팡 기간 순이익은 쿠팡 광고보고서의 전환매출과 쿠팡윙 판매현황의 전체판매수량을 같은 기간으로 맞춘 뒤, 쿠폰이 반영된 실제 판매 단가와 VAT 포함 비용을 차감해 계산합니다. 최종 업데이트: 2026-06-18.</p>
     </div>
     <div class="answer-grid">
       <article>
@@ -435,7 +437,7 @@
     <div class="quality-intro">
       <p class="eyebrow green">PRIVACY</p>
       <h2>데이터 처리와 사이트 운영 안내</h2>
-      <p>계산기는 사용자의 광고보고서 파일을 외부 서버로 업로드하지 않고, 브라우저에서만 읽어 계산합니다. 페이지에는 방문 통계를 위한 Google Analytics와 광고 게재를 위한 Google AdSense 스크립트가 포함될 수 있으며, Google은 쿠키 또는 이와 유사한 기술을 사용해 광고와 측정을 제공할 수 있습니다.</p>
+      <p>계산기는 사용자의 광고보고서 파일을 외부 서버로 업로드하지 않고, 브라우저에서만 읽어 계산합니다. 이 사이트는 쿠팡 또는 Coupang Corp.와 공식 제휴한 서비스가 아니며, 판매자가 직접 입력한 자료를 기준으로 참고용 손익을 계산합니다. 자세한 처리 기준은 <a href="/privacy.html">개인정보 처리 안내</a>에서 확인할 수 있습니다.</p>
     </div>
     <div class="quality-grid two">
       <article>
@@ -445,6 +447,62 @@
       <article>
         <h3>문의와 개선 요청</h3>
         <p>계산 기준이 맞지 않거나 추가하고 싶은 비용 항목이 있다면 <a href="#contact">문의와 개선 요청 폼</a>으로 남겨주세요.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="quality-section wrap" id="site-info">
+    <div class="quality-intro">
+      <p class="eyebrow green">SITE INFORMATION</p>
+      <h2>사이트 신뢰 정보</h2>
+      <p>이 도구는 쿠팡 판매자의 광고 손익 점검을 돕기 위한 독립 계산기입니다. 계산 로직, 데이터 처리 방식, 이용 전 확인해야 할 제한 사항을 별도 문서로 공개해 사용자가 결과를 검토할 수 있도록 했습니다.</p>
+    </div>
+    <div class="quality-grid">
+      <article>
+        <h3>운영 목적</h3>
+        <p><a href="/about.html">사이트 소개</a>에서 계산기가 어떤 문제를 해결하는지, 어떤 자료를 사용하는지, 쿠팡 공식 정산 자료와 어떤 차이가 있는지 설명합니다.</p>
+      </article>
+      <article>
+        <h3>상세 가이드</h3>
+        <p><a href="/guide.html">계산 가이드</a>에서 광고보고서 준비, 전체판매수량 확인, 비용 입력, 결과 해석 순서와 실무상 주의점을 정리했습니다.</p>
+      </article>
+      <article>
+        <h3>이용 조건</h3>
+        <p><a href="/terms.html">이용 안내</a>에서 참고용 계산 도구의 한계, 사용자 책임, 제휴 관계 없음, 문의 접수 기준을 확인할 수 있습니다.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="quality-section wrap" id="seller-guides">
+    <div class="quality-intro">
+      <p class="eyebrow green">SELLER ARTICLES</p>
+      <h2>쿠팡 판매자 실무 가이드</h2>
+      <p>광고보고서 계산 결과를 해석할 때 자주 막히는 주제를 별도 문서로 정리했습니다. ROAS, 쿠폰, 배송비, 반품, 손익분기 광고비를 함께 보면 매출이 아닌 순이익 기준으로 광고 운영을 판단할 수 있습니다.</p>
+    </div>
+    <div class="quality-grid">
+      <article>
+        <h3>ROAS와 순이익 차이</h3>
+        <p><a href="/roas-profit.html">ROAS가 높아도 순이익이 낮을 수 있는 이유</a>를 광고비, 원가, 수수료, 배송비 관점에서 설명합니다.</p>
+      </article>
+      <article>
+        <h3>쿠폰 비용 반영</h3>
+        <p><a href="/coupon-cost.html">판매자 부담 할인쿠폰을 매출에서 차감하는 방법</a>과 평균 쿠폰 단가를 쓰는 기준을 정리했습니다.</p>
+      </article>
+      <article>
+        <h3>배송비와 입출고비</h3>
+        <p><a href="/shipping-fee.html">배송 관련 비용을 개당 비용과 VAT 포함 비용으로 반영하는 방법</a>을 안내합니다.</p>
+      </article>
+      <article>
+        <h3>반품 및 취소</h3>
+        <p><a href="/returns-cancel.html">광고판매수량과 전체판매수량 차이로 반품/취소를 점검하는 방법</a>을 설명합니다.</p>
+      </article>
+      <article>
+        <h3>손익분기 광고비</h3>
+        <p><a href="/break-even-ad-spend.html">광고비를 얼마까지 쓸 수 있는지 판단하는 손익분기 기준</a>을 계산 순서로 정리했습니다.</p>
+      </article>
+      <article>
+        <h3>월간 점검표</h3>
+        <p><a href="/monthly-checklist.html">월별 광고보고서와 판매현황을 정리하는 체크리스트</a>로 반복 점검 항목을 확인할 수 있습니다.</p>
       </article>
     </div>
   </section>
@@ -526,7 +584,7 @@
 
   <div class="site-footer wrap">
     <span>쿠팡 광고보고서 기간 순이익 계산기</span>
-    <span><a href="#contact">문의 및 개선 요청</a> · 운영 참고용 계산 도구이며 실제 정산 금액과 차이가 있을 수 있습니다.</span>
+    <span><a href="/about.html">소개</a> · <a href="/guide.html">계산 가이드</a> · <a href="/roas-profit.html">ROAS</a> · <a href="/privacy.html">개인정보</a> · <a href="/terms.html">이용 안내</a> · <a href="#contact">문의</a></span>
   </div>
 
   <script src="./main.js?v=saas-period-12"></script>
